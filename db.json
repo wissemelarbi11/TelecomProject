@@ -1,0 +1,224 @@
+{
+  "paramPhysique": [
+    {
+      "id": 1,
+      "idType": 1,
+      "nbAntenne": 11,
+      "SectionVideo": "11"
+    },
+    {
+      "id": 2,
+      "idType": 1,
+      "nbAntenne": 50,
+      "SectionVideo": "50"
+    }
+  ],
+  "typeSupport": [
+    {
+      "idType": 1,
+      "libelleType": "FO"
+    },
+    {
+      "idType": 2,
+      "libelleType": "FH"
+    }
+  ],
+  "paramLogique": [
+    {
+      "id": 1,
+      "x": 11,
+      "y": "11",
+      "hba": 11,
+      "c": "11",
+      "bande": "test",
+      "frequence": "test frequence"
+    }
+  ],
+  "paramArchive": [
+    {
+      "id": 1,
+      "ficheMiseService": "11",
+      "afd": "11",
+      "ficheExp": "11"
+    },
+    {
+      "id": 2,
+      "ficheMiseService": "22",
+      "afd": "22",
+      "ficheExp": "22"
+    },
+    {
+      "id": 11,
+      "ficheMiseService": "11",
+      "afd": "11",
+      "ficheExp": "11"
+    },
+    {
+      "id": 12,
+      "ficheMiseService": "test",
+      "afd": "test",
+      "ficheExp": "tst"
+    },
+    {
+      "id": 3,
+      "ficheMiseService": "33",
+      "afd": "33",
+      "ficheExp": "33"
+    }
+  ],
+  "gouvernorats": [
+    {
+      "id": 1,
+      "libelle": "Tunis",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "La Marsa",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 101,
+            "nom": "Smith",
+            "prenom": "John",
+            "adresse": "123, Rue de la Liberté",
+            "tel": "123456789",
+            "email": "john.smith@example.com",
+            "fax": "987654321"
+          }
+        },
+        {
+          "id": 4,
+          "libelle": "Lac 1",
+          "secteurs": [
+            "Secteur 11",
+            "Secteur 21",
+            "Secteur 31"
+          ],
+          "ingenieur": {
+            "id": 101,
+            "nom": "Smith",
+            "prenom": "John",
+            "adresse": "123, Rue de la Liberté",
+            "tel": "123456789",
+            "email": "john.smith@example.com",
+            "fax": "987654321"
+          }
+        },
+        {
+          "id": 2,
+          "libelle": "Le Kram",
+          "secteurs": [
+            "Secteur A",
+            "Secteur B",
+            "Secteur C"
+          ],
+          "ingenieur": {
+            "id": 102,
+            "nom": "Doe",
+            "prenom": "Jane",
+            "adresse": "456, Avenue des Roses",
+            "tel": "987654321",
+            "email": "jane.doe@example.com",
+            "fax": "123456789"
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "libelle": "Sousse",
+      "delegations": [
+        {
+          "id": 3,
+          "libelle": "Sousse Ville",
+          "secteurs": [
+            "Secteur X",
+            "Secteur Y",
+            "Secteur Z"
+          ],
+          "ingenieur": {
+            "id": 103,
+            "nom": "Williams",
+            "prenom": "Michael",
+            "adresse": "789, Boulevard des Oliviers",
+            "tel": "555666777",
+            "email": "michael.williams@example.com",
+            "fax": "888999000"
+          }
+        }
+      ]
+    }
+  ],
+  "technologies": [
+    {
+      "id": 2,
+      "libelle": "ADSL"
+    },
+    {
+      "id": 3,
+      "libelle": "4G"
+    }
+  ],
+  "sites": [],
+  "docSite": [
+    {
+      "id": 2,
+      "idSite": "1",
+      "apd": "C:\\fakepath\\429993446_731781239146898_1315142133990742139_n (1).png",
+      "expertise": "",
+      "fvr": ""
+    },
+    {
+      "id": 1,
+      "idSite": "1",
+      "apd": "C:\\fakepath\\².docx",
+      "expertise": "C:\\fakepath\\².docx",
+      "fvr": "C:\\fakepath\\Versions utilisées.docx"
+    }
+  ],
+  "docFinanc": [
+    {
+      "id": 1,
+      "idSite": "1",
+      "proprietaire": "test 1",
+      "montant": 1200,
+      "contrat": "C:\\fakepath\\rollup.config.js"
+    },
+    {
+      "id": 2,
+      "idSite": "1",
+      "proprietaire": "test 2",
+      "montant": 600,
+      "contrat": "C:\\fakepath\\rollup.config.js"
+    },
+    {
+      "id": 3,
+      "idSite": "1",
+      "proprietaire": "test 3",
+      "montant": 1200,
+      "contrat": "C:\\fakepath\\rollup.config.js"
+    },
+    {
+      "id": 4,
+      "idSite": "2",
+      "proprietaire": "test 1",
+      "montant": 5454,
+      "contrat": "C:\\fakepath\\Architecture Angular.docx"
+    }
+  ],
+  "cellule": [
+    {
+      "id": 7,
+      "idSite": null,
+      "bande": "",
+      "pci": "",
+      "power": "",
+      "tac": "",
+      "tilt": "",
+      "azimuth": ""
+    }
+  ]
+}

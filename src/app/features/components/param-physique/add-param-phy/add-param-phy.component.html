@@ -1,0 +1,55 @@
+
+<form [formGroup]="paramPhyForm">
+
+    <!-- Horizontal Form -->
+    <div class="card card-info">
+
+        <!-- /.card-header -->
+        <!-- form start -->
+        <div class="form-horizontal">
+            <div class="card-body">
+
+                <div class="form-group row">
+                    <label for="Code" class="col-sm-4 col-form-label">Code</label>
+                    <div class="col-sm-10">
+                        <input type="number" formControlName="id" class="form-control" id="Code" placeholder="Code">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="nbAntenne" class="col-sm-4 col-form-label">nbAntenne</label>
+                    <div class="col-sm-10">
+                        <input type="number" formControlName="nbAntenne" class="form-control" id="nbAntenne"
+                            placeholder="nbAntenne">
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="SectionVideo" class="col-sm-4 col-form-label">SectionVideo</label>
+                    <div class="col-sm-10">
+                        <input type="text" formControlName="SectionVideo" class="form-control" id="SectionVideo"
+                            placeholder="SectionVideo">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="SectionVideo" class="col-sm-4 col-form-label">Liste des types de support</label>
+                    <select class="form-control" formControlName="idType">
+                        <option *ngFor="let item of types" [value]="item.idType"> {{ item.libelleType }}</option>
+                    </select>
+                </div>
+
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button class="btn btn-info" (click)="save()">Ajouter</button>
+                <button type="reset" class="btn btn-default float-right">Annuler</button>
+            </div>
+            <!-- /.card-footer -->
+        </div>
+        <!-- /.form-horizontal -->
+    </div>
+    <!-- /.card -->
+
+</form>

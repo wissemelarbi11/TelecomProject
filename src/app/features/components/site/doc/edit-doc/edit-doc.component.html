@@ -1,0 +1,75 @@
+<form [formGroup]="formGroup">
+
+    <!-- Horizontal Form -->
+    <div class="card card-info">
+
+        <!-- /.card-header -->
+        <!-- form start -->
+        <div class="form-horizontal">
+            <div class="card-body">
+
+                <div class="form-group row">
+                    <label for="Code" class="col-sm-4 col-form-label">Code</label>
+                    <div class="col-sm-10">
+                        <input type="number" formControlName="id" class="form-control" id="Code" placeholder="Code">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="libelleSite" class="col-sm-4 col-form-label">Liste des sites</label>
+                    <select class="form-control" formControlName="idSite">
+                        <option *ngFor="let item of listOfSite" [value]="item.id"> {{ item.libelleSite }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputFile">APD</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input formControlName="apd" (change)="onSelectedFile($event)" type="file"
+                                class="custom-file-input" id="exampleInputFile">
+                            <label class="custom-file-label" for="exampleInputFile">{{ formGroup.value.apd ? formGroup.value.apd.name : '' }}</label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputFile">Expertise</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input formControlName="expertise" (change)="onSelectedFile($event)" type="file"
+                                class="custom-file-input" id="exampleInputFile">
+                            <label class="custom-file-label" for="exampleInputFile">{{ formGroup.value.expertise ? formGroup.value.expertise.name : '' }}</label>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="exampleInputFile">FVR</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input formControlName="fvr" (change)="onSelectedFile($event)" type="file"
+                                class="custom-file-input" id="exampleInputFile">
+                            <label class="custom-file-label" for="exampleInputFile">{{ formGroup.value.fvr ? formGroup.value.fvr.name : '' }}</label>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button class="btn btn-info" (click)="edit()">Modifier</button>
+                <button type="reset" class="btn btn-default float-right">Annuler</button>
+            </div>
+            <!-- /.card-footer -->
+        </div>
+        <!-- /.form-horizontal -->
+    </div>
+    <!-- /.card -->
+
+</form>

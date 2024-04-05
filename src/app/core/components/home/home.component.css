@@ -1,0 +1,111 @@
+.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #87CEFA;
+    color: white;
+    font-weight: 600;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.main-body {
+    padding-top: 20px;
+    margin: 0 auto;
+    max-width: 1248px;
+}
+
+.mat-elevation-z8 {
+    transform: translate(0%, 20%);
+}
+
+.button {
+    background-color: rgb(255, 247, 247);
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+}
+
+.progress-bar {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.progress-value {
+    font-size: 14px;
+}
+
+.red-icon {
+    color: red;
+    font-size: 20px;
+}
+
+.red-bold {
+    color: red;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+    background-color: #ddd;
+}
+
+/* Styles pour le menu déroulant */
+.dropdown-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content li {
+    padding: 10px;
+}
+
+.dropdown-content li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.dropdown-content li a:hover {
+    background-color: #ddd;
+}

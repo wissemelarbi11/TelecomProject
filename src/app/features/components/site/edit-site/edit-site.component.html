@@ -1,0 +1,119 @@
+<form [formGroup]="formGroup">
+
+    <!-- Horizontal Form -->
+    <div class="card card-info">
+
+        <!-- /.card-header -->
+        <!-- form start -->
+        <div class="form-horizontal">
+            <div class="card-body">
+
+                <div class="form-group row">
+                    <label for="Code" class="col-sm-4 col-form-label">Code</label>
+                    <div class="col-sm-10">
+                        <input type="number" formControlName="id" class="form-control" id="Code" placeholder="Code">
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="libelleSite" class="col-sm-4 col-form-label">Liste des paramétres physique</label>
+                    <select class="form-control" formControlName="idPhysique">
+                        <option *ngFor="let item of listOfPhy" [value]="item.id"> {{ item.SectionVideo }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group row">
+                    <label for="libelleSite" class="col-sm-4 col-form-label">Liste des paramétres logique</label>
+                    <select class="form-control" formControlName="idLogique">
+                        <option *ngFor="let item of listOfLog" [value]="item.id"> {{ item.hba }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group row">
+                    <label for="libelleSite" class="col-sm-4 col-form-label">Liste des paramétres d'archive</label>
+                    <select class="form-control" formControlName="idArchive">
+                        <option *ngFor="let item of listOfArch" [value]="item.id"> {{ item.ficheMiseService }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group row">
+                    <label for="libelleSite" class="col-sm-4 col-form-label">Fournisseur</label>
+                    <select class="form-control" formControlName="idTechnologie">
+                        <option *ngFor="let item of listOfTech" [value]="item.id"> {{ item.libelle }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group row">
+                    <label for="idRegion" class="col-sm-4 col-form-label">Gouvernorat</label>
+                    <select class="form-control" formControlName="idRegion" (change)="onGouvernoratChange($event)">
+                        <option *ngFor="let gouvernorat of listOfReg" [value]="gouvernorat.id">{{ gouvernorat.libelle }}
+                        </option>
+                    </select>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="idDelegation" class="col-sm-4 col-form-label">Délégation</label>
+                    <select class="form-control" formControlName="delegation"
+                        (change)="getSecteurByDelegationId($event)">
+                        <option *ngFor="let delegation of delegations" [value]="delegation.libelle">{{ delegation.libelle }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group row">
+                    <label for="secteur" class="col-sm-4 col-form-label">Secteur</label>
+                    <select class="form-control" formControlName="secteur">
+                        <option *ngFor="let secteur of secteurs" [value]="secteur">{{ secteur }}</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="libelleSite" class="col-sm-4 col-form-label">Libellé de site</label>
+                    <div class="col-sm-10">
+                        <input type="text" formControlName="libelleSite" class="form-control" id="libelleSite"
+                            placeholder="libelleSite">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="miseEnSceneDate" class="col-sm-4 col-form-label">Date de mise en scène</label>
+                    <div class="col-sm-10">
+                        <input type="date" formControlName="miseEnSceneDate" class="form-control" id="miseEnSceneDate">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="Surface" class="col-sm-4 col-form-label">Surface</label>
+                    <div class="col-sm-10">
+                        <input type="text" formControlName="surface" class="form-control" id="Surface"
+                            placeholder="Surface">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="nbCellule" class="col-sm-4 col-form-label">Nombre de cellule</label>
+                    <div class="col-sm-10">
+                        <input type="number" formControlName="nbCellule" class="form-control" id="nbCellule"
+                            placeholder="nbCellule">
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button class="btn btn-info" (click)="edit()">Modifier</button>
+                <button type="reset" class="btn btn-default float-right">Annuler</button>
+            </div>
+            <!-- /.card-footer -->
+        </div>
+        <!-- /.form-horizontal -->
+    </div>
+    <!-- /.card -->
+
+</form>

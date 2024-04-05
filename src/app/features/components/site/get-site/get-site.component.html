@@ -1,0 +1,149 @@
+<div class="modal fade bs-example-modal-lg-add" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Ajouter un site LTE</h3>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <app-add-site></app-add-site>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg-edit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Modifer ce site LTE</h3>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <app-edit-site [data]="data"></app-edit-site>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Liste des sites</h4>
+                        <div class="card-tools">
+                            <button type="button" data-target=".bs-example-modal-lg-add" data-toggle="modal"
+                                (click)="add()" class="btn btn-block btn-primary btn-sm">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Libellé de site</th>
+                                    <th>Gouvernorat</th>
+                                    <th>Délegation</th>
+                                    <th>Secteur</th>
+                                    <th>Antenne</th>
+                                    <th>Support</th>
+                                    <th>X</th>
+                                    <th>Y</th>
+                                    <th>HBA</th>
+                                    <th>Archive</th>
+                                    <th>Fournisseur</th>
+                                    <th>Date de mise en scéne</th>
+                                    <th>Surface Occupè</th>
+                                    <th>Nombre de cellule</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of dataSource; let i = index">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.libelleSite}}</td>
+                                    <td hidden>{{ item.idPhysique }}</td>
+                                    <td hidden>{{item.idLogique}}</td>
+                                    <td hidden>{{item.idArchive}}</td>
+                                    <td hidden>{{item.idArchive}}</td>
+                                    <td hidden>{{item.idRegion}}</td>
+                                    <td>{{ getGouvernorat(item.idRegion) }}</td>
+                                    <td>{{item.delegation}}</td>
+                                    <td>{{item.secteur}}</td>
+                                    <td>{{ getAntenneParamPhysique(item.idPhysique) }}</td>
+                                    <td>{{ getSupportParamPhysique(item.idPhysique) }}</td>
+                                    <td>{{ getXParamLogique(item.idLogique) }}</td>
+                                    <td>{{ getYParamLogique(item.idLogique) }}</td>
+                                    <td>{{ getHBAParamLogique(item.idLogique) }}</td>
+                                    <td>{{ getLibelleParamArchive(item.idArchive) }}</td>
+                                    <td>{{ getLibelleTech(item.idTechnologie) }}</td>
+                                    <td>{{ item.miseEnSceneDate | date:'dd/MM/yyyy' }}</td>
+                                    <td>{{item.surface}}</td>
+                                    <td>{{item.nbCellule}}</td>
+                                    
+                                    <td>
+                                        <div>
+                                            <button class="btn  btn-info btn-sm" style="  width: auto;
+                                            margin-right: 1rem; " data-target=".bs-example-modal-lg-edit"
+                                                data-toggle="modal" (click)="openDialogedit(item)">
+                                                <i class="fa fa-pen"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm" style="  width: auto;
+                                            margin-right: 1rem; " (click)="delete(item.id)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Libellé de site</th>
+                                    <th>Gouvernorat</th>
+                                    <th>Délegation</th>
+                                    <th>Secteur</th>
+                                    <th>Antenne</th>
+                                    <th>Support</th>
+                                    <th>X</th>
+                                    <th>Y</th>
+                                    <th>HBA</th>
+                                    <th>Archive</th>
+                                    <th>Fournisseur</th>
+                                    <th>Date de mise en scéne</th>
+                                    <th>Surface Occupè</th>
+                                    <th>Nombre de cellule</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
