@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
   public form!: FormGroup;
+  isPasswordVisible = false; // For toggling password visibility
 
   constructor(
     private fb: FormBuilder,
@@ -26,11 +27,14 @@ export class LoginComponent implements OnInit {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
     }
-
+    
     this.form = this.fb.group({
       Nom: ['', Validators.required], // Champ requis
       password: ['', Validators.required] // Champ requis
     });
+  }
+  togglePasswordVisibility(): void {
+    this.isPasswordVisible = !this.isPasswordVisible;
   }
 
   onSubmit(): void {

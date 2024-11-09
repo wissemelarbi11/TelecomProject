@@ -20,6 +20,7 @@ export class EditDocComponent implements OnInit, OnChanges {
   @Input() data: any;
   delegations: any[] = [];
   listOfReg: any[] = [];
+  secteurs: any[] = [];
   listOfSite: Site[] = [];
 
   /**
@@ -41,24 +42,31 @@ export class EditDocComponent implements OnInit, OnChanges {
 
     this.formGroup = this.fb.group({
       id: [],
+      idRegion: [],
       idSite: [],
       apd: [''],
       expertise: [''],
       fvr: [''],
+      delegation: [],
+      site: [],
+
     })
 
     if (this.formGroup && this.data) {
       this.formGroup.patchValue({
         id: this.data.id,
         idSite: this.data.idSite,
+        idRegion: this.data.idRegion,
         apd: this.data.apd,
         expertise: this.data.expertise,
         fvr: this.data.fvr,
+        delegation: this.data.delegation,
+        site: this.data.site,
       });
     }
 
-    this.getSite();
     this.getGouv();
+    this.getSite();
     console.log('formGroup changes : ', this.data);
 
   }
@@ -68,9 +76,12 @@ export class EditDocComponent implements OnInit, OnChanges {
       this.formGroup.patchValue({
         id: this.data.id,
         idSite: this.data.idSite,
+        idRegion: this.data.idRegion,
         apd: this.data.apd,
         expertise: this.data.expertise,
         fvr: this.data.fvr,
+        delegation: this.data.delegation,
+        site: this.data.site
       });
     }
   }
@@ -82,12 +93,13 @@ export class EditDocComponent implements OnInit, OnChanges {
     if (this.formGroup.invalid) {
       return;
     }
+    this.formGroup.value.idRegion = parseInt(this.formGroup.value.idRegion);
 
     this.service.update(this.formGroup.value).subscribe(
       (resp: any) => {
         console.log(resp);
         alert("Docuement a été modifié avec succées");
-        window.location.reload(); 
+        window.location.reload();
         //  (this.location as any).reload();
       },
       (err: { error: any; }) => {
@@ -133,6 +145,27 @@ export class EditDocComponent implements OnInit, OnChanges {
     this.selectedFiles = event.target.files[0];
   }
 
+  getSecteurByDelegationId(event: any): void {
+    const idDelegationSelectionne = event.target.value;
+    const delegation = this.findDelegationById(idDelegationSelectionne);
+
+    if (delegation) {
+      this.secteurs = delegation.secteurs;
+    } else {
+      console.error("Délégation non trouvée");
+    }
+  }
+
+  findDelegationById(libelle: any): any {
+    for (const gouvernorat of this.listOfReg) {
+      for (const delegation of gouvernorat.delegations) {
+        if (delegation.libelle == libelle) {
+          return delegation;
+        }
+      }
+    }
+    return null;
+  }
   getSite() {
     this.siteService.getList().subscribe(
       (data: Site[]) => {

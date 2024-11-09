@@ -1,124 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Cellules - Tunisie Telecom</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+        }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .modal-header {
+            background-color: #17a2b8;
+            color: white;
+        }
+        .modal-content {
+            border-radius: 10px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .input-group-text {
+            background-color: #007bff;
+            color: white;
+        }
+        .table thead {
+            background-color: #007bff;
+            color: white;
+        }
+        .table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn-info {
+            background-color: #17a2b8;
+            border: none;
+        }
+        .btn-info:hover {
+            background-color: #138496;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Add Cellule Modal -->
 <div class="modal fade bs-example-modal-lg-add" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title">Ajouter une cellule</h3>
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                    </button>
-                </div>
+            <div class="modal-header">
+                <h3 class="modal-title">Ajouter une cellule</h3>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
                 <app-add-cellule></app-add-cellule>
-
             </div>
-
         </div>
     </div>
 </div>
 
+<!-- Edit Cellule Modal -->
 <div class="modal fade bs-example-modal-lg-edit" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
-            <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title">Modifer cette cellule</h3>
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                    </button>
-                </div>
+            <div class="modal-header">
+                <h3 class="modal-title">Modifier cette cellule</h3>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
                 <app-edit-cellule [data]="data"></app-edit-cellule>
-
             </div>
-
-
         </div>
     </div>
 </div>
 
+<!-- Main Content Section -->
 <section class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Liste des cellules</h4>
+                    <div class="card-header text-center">
+                        <h4 class="card-title">Découvrez la plateforme de gestion des cellules de Tunisie Telecom</h4>
                         <div class="card-tools">
                             <button type="button" data-target=".bs-example-modal-lg-add" data-toggle="modal"
-                                (click)="add()" class="btn btn-block btn-primary btn-sm">
+                                    (click)="add()" class="btn btn-block btn-primary btn-sm">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
-                    <!-- /.card-header -->
                     <div class="card-body">
+                        <!-- Search Input with Icon -->
+                        <div class="row mb-3">
+                            <div class="col-md-4 offset-md-8">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Rechercher par Nom Site" [(ngModel)]="searchTerm" (ngModelChange)="filterTable()">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Data Table -->
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Nom site</th>
-                                    <th>Gouvernorat</th>
-                                    <th>bande </th>
-                                    <th>pci</th>
-                                    <th>power</th>
-                                    <th>tac</th>
-                                    <th>tilt </th>
-                                    <th>azimuth </th>
-                                    <th>Actions</th>
-                                </tr>
+                            <tr>
+                                <th>Code Cellule</th>
+                                <th>Nom Cellule</th>
+                                <th>Nom Site</th>
+                                <th>Gouvernorat</th>
+                                <th>Technologie</th>
+                                <th>BSC</th>
+                                <th>Bande de fréquence</th>
+                                <th>PSC</th>
+                                <th>LAC</th>
+                                <th>RNC</th>
+                                <th>Tilt</th>
+                                <th>Azimuth</th>
+                                <th>Puissance</th>
+                                <th>Actions</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of dataSource; let i = index">
-                                    <td>{{ item.id }}</td>
-                                    <td>{{ getLibelleSite(item.idSite) }}</td>
-                                    <td>{{ getGouvernorat(item.idSite) }}</td>
-                                    <td>{{ item.bande }}</td>
-                                    <td>{{ item.pci }}</td>
-                                    <td>{{ item.power }}</td>
-                                    <td>{{ item.tac }}</td>
-                                    <td>{{ item.tilt }}</td>
-                                    <td>{{ item.azimuth }}</td>
-                                    <td>
-                                        <div>
-                                            <button class="btn  btn-info btn-sm" style="  width: auto;
-                                            margin-right: 1rem; " data-target=".bs-example-modal-lg-edit"
-                                                data-toggle="modal" (click)="openDialogedit(item)">
-                                                <i class="fa fa-pen"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" style="  width: auto;
-                                            margin-right: 1rem; " (click)="delete(item.id)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr *ngFor="let item of dataSource; let i = index">
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.nomcellule }}</td>
+                                <td>{{ getLibelleSite(item.idSite) }}</td>
+                                <td>{{ getGouvernorat(item.idSite) }}</td>
+                                <td>{{ item.technologie }}</td>
+                                <td>{{ item.bsc }}</td>
+                                <td>{{ item.bande }}</td>
+                                <td>{{ item.psc }}</td>
+                                <td>{{ item.lac }}</td>
+                                <td>{{ item.rnc }}</td>
+                                <td>{{ item.tilt }}</td>
+                                <td>{{ item.azimuth }}</td>
+                                <td>{{ item.puissance }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-info btn-sm" data-target=".bs-example-modal-lg-edit" data-toggle="modal" (click)="openDialogedit(item)" title="Modifier">
+                                            <i class="fa fa-pen"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm" (click)="delete(item.id)" title="Supprimer">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="noResultsMessage">
+                                <td colspan="14" class="text-center">{{ noResultsMessage }}</td>
+                            </tr>
                             </tbody>
                             <tfoot>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Nom site</th>
-                                    <th>Gouvernorat</th>
-                                    <th>bande </th>
-                                    <th>pci</th>
-                                    <th>power</th>
-                                    <th>tac</th>
-                                    <th>tilt </th>
-                                    <th>azimuth </th>
-                                    <th>Actions</th>
-                                </tr>
+                            <tr>
+                                <!-- Optional footer for table -->
+                            </tr>
                             </tfoot>
                         </table>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
 </section>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

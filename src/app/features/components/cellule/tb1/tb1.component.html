@@ -1,0 +1,114 @@
+<form [formGroup]="form">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">Recherche de Sites</h3>
+        </div>
+        <div class="form-horizontal">
+            <div class="card-body">
+                <div class="form-group row">
+                    <label for="fournisseur" class="col-sm-4 col-form-label">Fournisseur</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" formControlName="fournisseur">
+                            <option value="huawei">Huawei</option>
+                            <option value="ericsson">Ericsson</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="idRegion" class="col-sm-4 col-form-label">Gouvernorat</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" formControlName="idRegion" (change)="onGouvernoratChange($event)">
+                            <option *ngFor="let gouvernorat of listOfReg" [value]="gouvernorat.id">{{ gouvernorat.libelle }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="delegation" class="col-sm-4 col-form-label">Délégation</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" formControlName="delegation">
+                            <option *ngFor="let delegation of delegations" [value]="delegation.libelle">{{ delegation.libelle }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="nomSite" class="col-sm-4 col-form-label">Nom du Site</label>
+                    <div class="col-sm-8">
+                        <input type="text" formControlName="nomSite" class="form-control" id="nomSite">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="technologie" class="col-sm-4 col-form-label">Technologie</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" formControlName="technologie">
+                            <option value="2G">2G</option>
+                            <option value="3G">3G</option>
+                            <option value="4G">4G</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-info" (click)="search()">Rechercher</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<h2>Résultats de la recherche :</h2>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Liste des Sites</h3>
+                    </div>
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Code Cellule</th>
+                                    <th>Nom Cellule</th>
+                                    <th>Gouvernorat</th>
+                                    <th>Délegation</th>
+                                    <th>Technologie</th>
+                                    <th>Fournisseur</th>
+                                    <th>Nom du Site</th>
+                                    <th>Bande</th>
+                                    <th>RNC</th>
+                                    <th>LAC</th>
+                                    <th>BSC</th>
+                                    <th>TILT</th>
+                                    <th>AZIMUTH</th>
+                                    <th>Puissance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of filteredData">
+                                    <td>{{ getCode(item.id) }}</td>
+                                    <td>{{ getNomCell(item.id) }}</td>
+                                    <td>{{ getGouvernorat(item.idRegion) }}</td>
+                                    <td>{{ item.delegation }}</td>
+                                    <td>{{ getTechnologie(item.id) }}</td>
+                                    <td>{{ item.fournisseur }}</td>
+                                    <td>{{ item.libelleSite }}</td>
+                                    <td>{{ getBande(item.id) }}</td>
+                                    <td>{{ getRnc(item.id) }}</td>
+                                    <td>{{ getLac(item.id) }}</td>
+                                    <td>{{ getBsc(item.id) }}</td>
+                                    <td>{{ getTilt(item.id) }}</td>
+                                    <td>{{ getAzimuth(item.id) }}</td>
+                                    <td>{{ getPuissance(item.id) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-info" (click)="exportToExcel()">Exporter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

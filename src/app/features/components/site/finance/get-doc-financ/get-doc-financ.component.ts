@@ -17,7 +17,7 @@ export class GetDocFinancComponent {
   isDialogOpen: boolean = false;
   isDialogEdit: boolean = false;
   data!: any;
-  siteList!: Site[];
+  siteList: Site[] = [];
   listOfReg: any[] = [];
   /**
 * @ignore
@@ -32,8 +32,8 @@ export class GetDocFinancComponent {
   ngOnInit(): void {
 
     this.getAll();
-    this.getSiteList();
     this.getGouv();
+    this.getSiteList();
 
   }
 
@@ -41,6 +41,18 @@ export class GetDocFinancComponent {
     this.service.getList().subscribe((res: DocFinanc[]) => {
       this.dataSource = res;
     })
+  }
+  
+  getSiteList() {
+    this.siteService.getList().subscribe((res: any[]) => {
+      this.siteList = res;
+    });
+  }
+
+  getLibelleSite(id: any): string {
+    // Recherchez le libellé correspondant à l'ID de site
+    const site = this.siteList.find(param => param.id == id);
+    return site ? site.libelleSite : '';
   }
 
 
@@ -97,19 +109,6 @@ export class GetDocFinancComponent {
     this.data = item;
   }
 
-  getSiteList() {
-    this.siteService.getList().subscribe((res: any[]) => {
-      this.siteList = res;
-    });
-  }
-
-  getLibelleSite(id: any): string {
-    // Recherchez le libellé correspondant à l'ID de site
-    const site = this.siteList.find(param => param.id == id);
-    return site ? site.libelleSite : '';
-  }
-
-
   getGouv() {
     this.gouvService.getList().subscribe(
       (data: any[]) => {
@@ -120,10 +119,10 @@ export class GetDocFinancComponent {
       }
     );
   }
-  
+
   getGouvernorat(id: any): string {
     // Recherchez le gouvernorat correspondant à l'ID de site
-    const site = this.siteList.find(param => param.id == id);
+    const site = this.dataSource.find(param => param.idRegion == id);
 
     const regionId = site ? site.idRegion : '';
     const region = this.listOfReg.find(region => region.id === regionId);

@@ -1,18 +1,4 @@
 {
-  "paramPhysique": [
-    {
-      "id": 1,
-      "idType": 1,
-      "nbAntenne": 11,
-      "SectionVideo": "11"
-    },
-    {
-      "id": 2,
-      "idType": 1,
-      "nbAntenne": 50,
-      "SectionVideo": "50"
-    }
-  ],
   "typeSupport": [
     {
       "idType": 1,
@@ -21,49 +7,6 @@
     {
       "idType": 2,
       "libelleType": "FH"
-    }
-  ],
-  "paramLogique": [
-    {
-      "id": 1,
-      "x": 11,
-      "y": "11",
-      "hba": 11,
-      "c": "11",
-      "bande": "test",
-      "frequence": "test frequence"
-    }
-  ],
-  "paramArchive": [
-    {
-      "id": 1,
-      "ficheMiseService": "11",
-      "afd": "11",
-      "ficheExp": "11"
-    },
-    {
-      "id": 2,
-      "ficheMiseService": "22",
-      "afd": "22",
-      "ficheExp": "22"
-    },
-    {
-      "id": 11,
-      "ficheMiseService": "11",
-      "afd": "11",
-      "ficheExp": "11"
-    },
-    {
-      "id": 12,
-      "ficheMiseService": "test",
-      "afd": "test",
-      "ficheExp": "tst"
-    },
-    {
-      "id": 3,
-      "ficheMiseService": "33",
-      "afd": "33",
-      "ficheExp": "33"
     }
   ],
   "gouvernorats": [
@@ -78,24 +21,6 @@
             "Secteur 1",
             "Secteur 2",
             "Secteur 3"
-          ],
-          "ingenieur": {
-            "id": 101,
-            "nom": "Smith",
-            "prenom": "John",
-            "adresse": "123, Rue de la Liberté",
-            "tel": "123456789",
-            "email": "john.smith@example.com",
-            "fax": "987654321"
-          }
-        },
-        {
-          "id": 4,
-          "libelle": "Lac 1",
-          "secteurs": [
-            "Secteur 11",
-            "Secteur 21",
-            "Secteur 31"
           ],
           "ingenieur": {
             "id": 101,
@@ -129,10 +54,52 @@
     },
     {
       "id": 2,
+      "libelle": "Ariana",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Ariana Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 101,
+            "nom": "Smith",
+            "prenom": "John",
+            "adresse": "123, Rue de la Liberté",
+            "tel": "123456789",
+            "email": "john.smith@example.com",
+            "fax": "987654321"
+          }
+        },
+        {
+          "id": 2,
+          "libelle": "Roued",
+          "secteurs": [
+            "Secteur A",
+            "Secteur B",
+            "Secteur C"
+          ],
+          "ingenieur": {
+            "id": 102,
+            "nom": "Doe",
+            "prenom": "Jane",
+            "adresse": "456, Avenue des Roses",
+            "tel": "987654321",
+            "email": "jane.doe@example.com",
+            "fax": "123456789"
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
       "libelle": "Sousse",
       "delegations": [
         {
-          "id": 3,
+          "id": 1,
           "libelle": "Sousse Ville",
           "secteurs": [
             "Secteur X",
@@ -150,75 +117,641 @@
           }
         }
       ]
-    }
-  ],
-  "technologies": [
-    {
-      "id": 2,
-      "libelle": "ADSL"
     },
     {
-      "id": 3,
-      "libelle": "4G"
+      "id": 4,
+      "libelle": "Nabeul",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Nabeul Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 104,
+            "nom": "Brown",
+            "prenom": "Chris",
+            "adresse": "321, Rue du Lac",
+            "tel": "111222333",
+            "email": "chris.brown@example.com",
+            "fax": "444555666"
+          }
+        },
+        {
+          "id": 2,
+          "libelle": "Hammamet",
+          "secteurs": [
+            "Secteur A",
+            "Secteur B",
+            "Secteur C"
+          ],
+          "ingenieur": {
+            "id": 105,
+            "nom": "Taylor",
+            "prenom": "Alex",
+            "adresse": "654, Avenue du Soleil",
+            "tel": "777888999",
+            "email": "alex.taylor@example.com",
+            "fax": "000111222"
+          }
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "libelle": "Monastir",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Monastir Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 106,
+            "nom": "Johnson",
+            "prenom": "Pat",
+            "adresse": "789, Rue des Fleurs",
+            "tel": "123321123",
+            "email": "pat.johnson@example.com",
+            "fax": "321123321"
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "libelle": "Sfax",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Sfax Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 107,
+            "nom": "Miller",
+            "prenom": "Sam",
+            "adresse": "456, Rue des Palmiers",
+            "tel": "654987321",
+            "email": "sam.miller@example.com",
+            "fax": "321789654"
+          }
+        },
+        {
+          "id": 2,
+          "libelle": "Sfax Sud",
+          "secteurs": [
+            "Secteur A",
+            "Secteur B",
+            "Secteur C"
+          ],
+          "ingenieur": {
+            "id": 108,
+            "nom": "Wilson",
+            "prenom": "Alex",
+            "adresse": "123, Avenue des Orangers",
+            "tel": "987321654",
+            "email": "alex.wilson@example.com",
+            "fax": "654123987"
+          }
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "libelle": "Gabès",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Gabès Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 109,
+            "nom": "Davis",
+            "prenom": "Lee",
+            "adresse": "789, Rue des Cedres",
+            "tel": "741852963",
+            "email": "lee.davis@example.com",
+            "fax": "963258741"
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "libelle": "Kairouan",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Kairouan Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 110,
+            "nom": "Garcia",
+            "prenom": "Juan",
+            "adresse": "456, Rue de la Medina",
+            "tel": "852963741",
+            "email": "juan.garcia@example.com",
+            "fax": "741963852"
+          }
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "libelle": "Gafsa",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Gafsa Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 111,
+            "nom": "Martinez",
+            "prenom": "Carlos",
+            "adresse": "123, Rue de la Republique",
+            "tel": "789654123",
+            "email": "carlos.martinez@example.com",
+            "fax": "123456789"
+          }
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "libelle": "Bizerte",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Bizerte Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 112,
+            "nom": "Lopez",
+            "prenom": "Miguel",
+            "adresse": "789, Rue des Tulipes",
+            "tel": "456123789",
+            "email": "miguel.lopez@example.com",
+            "fax": "789456123"
+          }
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "libelle": "Beja",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Beja Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 113,
+            "nom": "Rodriguez",
+            "prenom": "Ana",
+            "adresse": "123, Avenue des Champs",
+            "tel": "321654987",
+            "email": "ana.rodriguez@example.com",
+            "fax": "987321654"
+          }
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "libelle": "Jendouba",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Jendouba Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 114,
+            "nom": "Perez",
+            "prenom": "Sofia",
+            "adresse": "456, Rue de la Foret",
+            "tel": "852741963",
+            "email": "sofia.perez@example.com",
+            "fax": "963147852"
+          }
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "libelle": "Kef",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Kef Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 115,
+            "nom": "Sanchez",
+            "prenom": "Luis",
+            "adresse": "789, Avenue de la Paix",
+            "tel": "963852741",
+            "email": "luis.sanchez@example.com",
+            "fax": "741852963"
+          }
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "libelle": "Mahdia",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Mahdia Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 116,
+            "nom": "Gomez",
+            "prenom": "Eva",
+            "adresse": "123, Rue des Amandiers",
+            "tel": "654321987",
+            "email": "eva.gomez@example.com",
+            "fax": "789123654"
+          }
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "libelle": "Manouba",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Manouba Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 117,
+            "nom": "Hernandez",
+            "prenom": "Isabel",
+            "adresse": "456, Rue des Roses",
+            "tel": "321987654",
+            "email": "isabel.hernandez@example.com",
+            "fax": "654789321"
+          }
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "libelle": "Médenine",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Médenine Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 118,
+            "nom": "Martinez",
+            "prenom": "Laura",
+            "adresse": "789, Rue des Orangers",
+            "tel": "147258369",
+            "email": "laura.martinez@example.com",
+            "fax": "963258741"
+          }
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "libelle": "Sidi Bouzid",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Sidi Bouzid Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 119,
+            "nom": "Ramirez",
+            "prenom": "Sergio",
+            "adresse": "123, Rue de la Republique",
+            "tel": "951753852",
+            "email": "sergio.ramirez@example.com",
+            "fax": "852147963"
+          }
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "libelle": "Siliana",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Siliana Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 120,
+            "nom": "Torres",
+            "prenom": "Lina",
+            "adresse": "456, Rue des Cedres",
+            "tel": "357159852",
+            "email": "lina.torres@example.com",
+            "fax": "951456357"
+          }
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "libelle": "Tataouine",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Tataouine Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 121,
+            "nom": "Ortiz",
+            "prenom": "Mario",
+            "adresse": "789, Rue de la Revolution",
+            "tel": "753951456",
+            "email": "mario.ortiz@example.com",
+            "fax": "654357951"
+          }
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "libelle": "Tozeur",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Tozeur Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 122,
+            "nom": "Ruiz",
+            "prenom": "Marco",
+            "adresse": "123, Rue des Oliviers",
+            "tel": "456753159",
+            "email": "marco.ruiz@example.com",
+            "fax": "753951456"
+          }
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "libelle": "Zaghouan",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Zaghouan Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 123,
+            "nom": "Ramirez",
+            "prenom": "Sofia",
+            "adresse": "456, Rue des Lilas",
+            "tel": "753159456",
+            "email": "sofia.ramirez@example.com",
+            "fax": "159753456"
+          }
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "libelle": "Kasserine",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Kasserine Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 124,
+            "nom": "Alvarez",
+            "prenom": "Carlos",
+            "adresse": "789, Avenue des Palmiers",
+            "tel": "159753456",
+            "email": "carlos.alvarez@example.com",
+            "fax": "753159456"
+          }
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "libelle": "Kebili",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Kebili Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 125,
+            "nom": "Gonzalez",
+            "prenom": "Ana",
+            "adresse": "123, Rue des Acacias",
+            "tel": "951357456",
+            "email": "ana.gonzalez@example.com",
+            "fax": "456951753"
+          }
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "libelle": "Ben Arous",
+      "delegations": [
+        {
+          "id": 1,
+          "libelle": "Ben Arous Ville",
+          "secteurs": [
+            "Secteur 1",
+            "Secteur 2",
+            "Secteur 3"
+          ],
+          "ingenieur": {
+            "id": 126,
+            "nom": "Navarro",
+            "prenom": "David",
+            "adresse": "456, Avenue de la Liberte",
+            "tel": "951753456",
+            "email": "david.navarro@example.com",
+            "fax": "753951456"
+          }
+        }
+      ]
     }
   ],
-  "sites": [],
+  "sites": [
+    {
+      "id": 1,
+      "fournisseur": "huawei",
+      "idRegion": 2,
+      "libelleSite": "Site4G",
+      "miseEnSceneDate": "2024-11-03",
+      "surface": "20",
+      "nbCellule": 2,
+      "secteur": "Secteur 2",
+      "delegation": "Ariana Ville",
+      "nbAntenne": 3,
+      "technologie": null,
+      "hba": 3,
+      "x": 4,
+      "y": 4,
+      "support": "FO"
+    },
+    {
+      "id": 2,
+      "fournisseur": "ericsson",
+      "idRegion": 1,
+      "libelleSite": "Site3G",
+      "miseEnSceneDate": "2024-10-19",
+      "surface": "6",
+      "nbCellule": 4,
+      "secteur": "Secteur 2",
+      "delegation": "La Marsa",
+      "nbAntenne": 2,
+      "technologie": null,
+      "hba": 85,
+      "x": 3232,
+      "y": 789,
+      "support": "FH"
+    }
+  ],
   "docSite": [
-    {
-      "id": 2,
-      "idSite": "1",
-      "apd": "C:\\fakepath\\429993446_731781239146898_1315142133990742139_n (1).png",
-      "expertise": "",
-      "fvr": ""
-    },
     {
       "id": 1,
       "idSite": "1",
-      "apd": "C:\\fakepath\\².docx",
-      "expertise": "C:\\fakepath\\².docx",
-      "fvr": "C:\\fakepath\\Versions utilisées.docx"
+      "idRegion": 2,
+      "apd": "C:\\fakepath\\[PFE] Rapport plagiat.eml",
+      "expertise": "C:\\fakepath\\jflalf.PNG",
+      "fvr": "C:\\fakepath\\jflalf.PNG",
+      "delegation": "Ariana Ville",
+      "site": null
     }
   ],
   "docFinanc": [
     {
-      "id": 1,
-      "idSite": "1",
-      "proprietaire": "test 1",
-      "montant": 1200,
-      "contrat": "C:\\fakepath\\rollup.config.js"
-    },
-    {
       "id": 2,
       "idSite": "1",
-      "proprietaire": "test 2",
-      "montant": 600,
-      "contrat": "C:\\fakepath\\rollup.config.js"
-    },
-    {
-      "id": 3,
-      "idSite": "1",
-      "proprietaire": "test 3",
-      "montant": 1200,
-      "contrat": "C:\\fakepath\\rollup.config.js"
-    },
-    {
-      "id": 4,
-      "idSite": "2",
-      "proprietaire": "test 1",
-      "montant": 5454,
-      "contrat": "C:\\fakepath\\Architecture Angular.docx"
+      "idRegion": 2,
+      "proprietaire": "5336",
+      "montant": 5000000,
+      "contrat": "C:\\fakepath\\phasss.drawio.png",
+      "dateContrat": "2024-10-02",
+      "delegation": "Ariana Ville",
+      "site": null
     }
   ],
   "cellule": [
     {
-      "id": 7,
-      "idSite": null,
-      "bande": "",
+      "id": 2,
+      "nomcellule": "wissem",
+      "idSite": "1",
+      "libelleSite": null,
+      "lac": "dd",
+      "bsc": "147",
+      "puissance": "2500",
+      "bande": 15,
       "pci": "",
       "power": "",
       "tac": "",
+      "tilt": "555",
+      "azimuth": "52",
+      "technologie": "2G"
+    },
+    {
+      "id": 4,
+      "nomcellule": "Cellule2",
+      "idSite": "2",
+      "libelleSite": null,
+      "lac": "123",
+      "bsc": null,
+      "puissance": "2000",
+      "bande": 14,
+      "pci": "",
+      "power": "",
+      "tac": "652",
       "tilt": "",
-      "azimuth": ""
+      "azimuth": "555",
+      "technologie": "3G"
     }
   ]
 }

@@ -1,63 +1,23 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="border-right: none; box-shadow: none;">
   <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
-    <img src="assets/TT.jpg" alt="Tunisie Telecom Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">Tunisie Telecom</span>
+  <a href="index3.html" class="brand-link" style="background-color: #2c3e50;">
+    <img src="assets/TT.jpg" alt="Tunisie Telecom Logo" class="brand-image img-circle" 
+         style="width: 50px; height: 50px; opacity: .9; border: 2px solid #fff;">
+    <span class="brand-text font-weight-bold text-light">Tunisie Telecom</span>
   </a>
 
   <!-- Sidebar -->
-  <div class="sidebar">
-    <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      <div class="image">
-        <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-      </div>
-      <div class="info">
-        <a href="#" class="d-block">Wissem ELARBI </a>
-        
-      </div>
-    </div>
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
+        <!-- Site GSM -->
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-table"></i>
+            <i class="nav-icon fas fa-signal"></i>
             <p>
-              Paramétrage
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a [routerLink]="['/getParamArchive']" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Archive</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a [routerLink]="['/getParamPhysique']" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Physique</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a [routerLink]="['/getParamLogique']" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Logique</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-table"></i>
-            <p>
-              Site LTE
-              <i class="fas fa-angle-left right"></i>
+              Site GSM
+              <i class="right fas fa-angle-left rotate"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
@@ -76,24 +36,25 @@
             <li class="nav-item">
               <a [routerLink]="['/getDocFinanc']" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Dossier financiére site</p>
+                <p>Dossier financier site</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/tables/jsgrid.html" class="nav-link">
+              <a [routerLink]="['/search']" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>TB</p>
+                <p>TB Site</p>
               </a>
             </li>
           </ul>
         </li>
 
+        <!-- Cellule -->
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-table"></i>
             <p>
-              Cellule LTE
-              <i class="fas fa-angle-left right"></i>
+              Cellule
+              <i class="right fas fa-angle-left rotate"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
@@ -104,24 +65,89 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="pages/tables/data.html" class="nav-link">
+              <a [routerLink]="['/bi']" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>TB</p>
+                <p>TB Cellule</p>
               </a>
             </li>
           </ul>
         </li>
 
+        <!-- Tableau de bord -->
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-chart-bar"></i>
+            <p>
+              Tableau de bord
+              <i class="right fas fa-angle-left rotate"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a [routerLink]="['/tb']" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>BI</p>
+              </a>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
-    <a [routerLink]="['/']" class="nav-link">
-      <img src="\assets\dist\img\deconnexion.png"  width="20" height="30" style="display: inline-block; vertical-align: middle; margin-bottom: -850px; margin-right: 5px;"> 
-      
-  </a>
-  
-    
-    <!-- /.sidebar-menu -->
-  </div>
+
+    <!-- Logout -->
+    <div class="mt-3">
+      <a [routerLink]="['/login']" class="nav-link">
+        <img src="assets/dist/img/deconnexion.png" width="20" height="30" class="mr-2">
+        <span class="font-weight-bold text-light">Déconnexion</span>
+      </a>
+    </div>
   
   <!-- /.sidebar -->
 </aside>
+
+<style>
+.sidebar {
+  background: #1e2a38;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.nav-link {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 0;
+}
+
+.nav-link:hover {
+  background-color: #3b4a57;
+  color: #fff;
+}
+
+.rotate {
+  transition: transform 0.3s ease;
+}
+
+.rotate.open {
+  transform: rotate(90deg);
+}
+
+.brand-text {
+  font-weight: bold;
+  color: #fff;
+}
+
+.main-sidebar {
+  margin-right: 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+}
+
+.content-wrapper {
+  margin-left: 250px;
+  padding: 20px;
+}
+</style>

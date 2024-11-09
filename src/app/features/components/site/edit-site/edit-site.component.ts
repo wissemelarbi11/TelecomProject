@@ -25,7 +25,7 @@ export class EditSiteComponent implements OnInit, OnChanges {
   listOfArch: any[] = [];
   listOfTech: any[] = [];
   listOfReg: any[] = [];
-  secteurs: any= [];
+  secteurs: any = [];
   /**
    * @ignore
    */
@@ -49,27 +49,26 @@ export class EditSiteComponent implements OnInit, OnChanges {
     console.log('data test', 'color: #007acc;', this.data);
     this.formGroup = this.fb.group({
       id: [],
-      idPhysique: [],
-      idLogique: [],
-      idArchive: [],
-      idTechnologie: [],
+      fournisseur: [],
       idRegion: [],
       libelleSite: [],
       miseEnSceneDate: [],
       surface: [],
       nbCellule: [],
       secteur: [],
-      delegation: []
-
+      delegation: [],
+      nbAntenne: [],
+      technologie: [],
+      hba: [],
+      x: [],
+      y: [],
+      support: []
     })
 
     if (this.formGroup && this.data) {
       this.formGroup.patchValue({
         id: this.data.id,
-        idPhysique: this.data.idPhysique,
-        idLogique: this.data.idLogique,
-        idArchive: this.data.idArchive,
-        idTechnologie: this.data.idTechnologie,
+        fournisseur: this.data.fournisseur,
         idRegion: this.data.idRegion,
         libelleSite: this.data.libelleSite,
         miseEnSceneDate: this.data.miseEnSceneDate,
@@ -77,14 +76,15 @@ export class EditSiteComponent implements OnInit, OnChanges {
         nbCellule: this.data.nbCellule,
         secteur: this.data.secteur,
         delegation: this.data.delegation,
-
+        nbAntenne: this.data.nbAntenne,
+        technologie: this.data.technologie,
+        hba: this.data.hba,
+        x: this.data.x,
+        y: this.data.y,
+        support: this.data.support
       });
     }
 
-    this.getParamPhy();
-    this.getParamArch();
-    this.getParamLog();
-    this.getTech();
     this.getGouv();
 
   }
@@ -93,10 +93,7 @@ export class EditSiteComponent implements OnInit, OnChanges {
     if (this.formGroup && this.data) {
       this.formGroup.patchValue({
         id: this.data.id,
-        idPhysique: this.data.idPhysique,
-        idLogique: this.data.idLogique,
-        idArchive: this.data.idArchive,
-        idTechnologie: this.data.idTechnologie,
+        fournisseur: this.data.fournisseur,
         idRegion: this.data.idRegion,
         libelleSite: this.data.libelleSite,
         miseEnSceneDate: this.data.miseEnSceneDate,
@@ -104,7 +101,12 @@ export class EditSiteComponent implements OnInit, OnChanges {
         nbCellule: this.data.nbCellule,
         secteur: this.data.secteur,
         delegation: this.data.delegation,
-
+        nbAntenne: this.data.nbAntenne,
+        technologie: this.data.technologie,
+        hba: this.data.hba,
+        x: this.data.x,
+        y: this.data.y,
+        support: this.data.support
       });
     }
   }
@@ -117,17 +119,14 @@ export class EditSiteComponent implements OnInit, OnChanges {
       return;
     }
 
-    this.formGroup.value.idPhysique = parseInt(this.formGroup.value.idPhysique);
-    this.formGroup.value.idLogique = parseInt(this.formGroup.value.idLogique);
-    this.formGroup.value.idArchive = parseInt(this.formGroup.value.idArchive);
-    this.formGroup.value.idTechnologie = parseInt(this.formGroup.value.idTechnologie);
+ 
     this.formGroup.value.idRegion = parseInt(this.formGroup.value.idRegion);
 
     this.service.update(this.formGroup.value).subscribe(
       (resp) => {
         console.log(resp);
         alert("Site a été modifié avec succées");
-        window.location.reload(); 
+        window.location.reload();
         //  (this.location as any).reload();
       },
       (err) => {
@@ -137,54 +136,6 @@ export class EditSiteComponent implements OnInit, OnChanges {
       }
     );
 
-  }
-
-  getParamPhy() {
-    this.paramPhyService.getList().subscribe(
-      (data: any[]) => {
-        this.listOfPhy = data;
-        console.log('%csrc\app\features\components\site\add-site\add-site.component.ts:73 this.listOfPhy', 'color: #007acc;', this.listOfPhy);
-      },
-      (error: any) => {
-        console.error('Erreur lors de la récupération des paramétres physique', error);
-      }
-    );
-  }
-
-  getParamLog() {
-    this.paramLogiqueService.getList().subscribe(
-      (data: any[]) => {
-        this.listOfLog = data;
-        console.log('%csrc\app\features\components\site\add-site\add-site.component.ts:85 this.listOfLog ', 'color: #007acc;', this.listOfLog);
-      },
-      (error: any) => {
-        console.error('Erreur lors de la récupération des paramétres logique', error);
-      }
-    );
-  }
-
-
-  getParamArch() {
-    this.paramArchiveService.getList().subscribe(
-      (data: any[]) => {
-        this.listOfArch = data;
-        console.log('%csrc\app\features\components\site\add-site\add-site.component.ts:98 this.listOfArch', 'color: #007acc;', this.listOfArch);
-      },
-      (error: any) => {
-        console.error("Erreur lors de la récupération des paramétres d'archive", error);
-      }
-    );
-  }
-
-  getTech() {
-    this.technologieService.getList().subscribe(
-      (data: any[]) => {
-        this.listOfTech = data;
-      },
-      (error: any) => {
-        console.error("Erreur lors de la récupération de la liste des technologies", error);
-      }
-    );
   }
 
 
@@ -220,22 +171,22 @@ export class EditSiteComponent implements OnInit, OnChanges {
     const delegation = this.findDelegationById(idDelegationSelectionne);
 
     if (delegation) {
-        this.secteurs = delegation.secteurs;
+      this.secteurs = delegation.secteurs;
     } else {
-        console.error("Délégation non trouvée");
+      console.error("Délégation non trouvée");
     }
-}
-
-findDelegationById(libelle: any): any {
-  for (const gouvernorat of this.listOfReg) {
-      for (const delegation of gouvernorat.delegations) {
-          if (delegation.libelle == libelle) {
-              return delegation;
-          }
-      }
   }
-  return null; 
-}
+
+  findDelegationById(libelle: any): any {
+    for (const gouvernorat of this.listOfReg) {
+      for (const delegation of gouvernorat.delegations) {
+        if (delegation.libelle == libelle) {
+          return delegation;
+        }
+      }
+    }
+    return null;
+  }
 
 
 

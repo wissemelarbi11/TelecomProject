@@ -1,47 +1,55 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { gouvernorate } from 'src/app/features/models/governorate';
 import { ParamPhy } from 'src/app/features/models/param-phy';
+import { Site } from 'src/app/features/models/site';
 import { GovernorateService } from 'src/app/features/services/governorate.service';
 import { ParamArchiveService } from 'src/app/features/services/param-archive.service';
 import { ParamLogiqueService } from 'src/app/features/services/param-logique.service';
 import { ParamPhyService } from 'src/app/features/services/param-phy.service';
 import { SiteService } from 'src/app/features/services/site.service';
 import { TechnologieService } from 'src/app/features/services/technologie.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-site',
   templateUrl: './add-site.component.html',
   styleUrls: ['./add-site.component.css']
 })
-export class AddSiteComponent {
+export class AddSiteComponent implements OnInit {
+  dataSource: Site[] = [];
+  selectedSiteId: any;
+  selectedGouvernorat: string = '';
+  selectedDelegation: string = '';
 
   listOfPhy: ParamPhy[] = [];
   listOfLog: any[] = [];
   listOfArch: any[] = [];
   listOfTech: any[] = [];
   listOfReg: any[] = [];
-  public paramPhyForm!: FormGroup;
+  public form!: FormGroup;
 
   delegations: any[] = [];
   secteurs: any[] = [];
 
   ngOnInit(): void {
-    this.paramPhyForm = this.fb.group({
+    this.form = this.fb.group({
       id: [],
-      idPhysique: [],
-      idLogique: [],
-      idArchive: [],
-      idTechnologie: [],
+      fournisseur: [],
       idRegion: [],
       libelleSite: [],
       miseEnSceneDate: [],
       surface: [],
       nbCellule: [],
       secteur: [],
-      delegation: []
-    }
-    );
+      delegation: [],
+      nbAntenne: [],
+      technologie: [],
+      hba: [],
+      x: [],
+      y: [],
+      support: []
+    });
 
     this.getParamPhy();
     this.getParamArch();
@@ -50,50 +58,78 @@ export class AddSiteComponent {
     this.getGouv();
   }
 
-  constructor(private paramPhyService: ParamPhyService,
+  constructor(
+    private paramPhyService: ParamPhyService,
     private paramLogiqueService: ParamLogiqueService,
     private paramArchiveService: ParamArchiveService,
     private technologieService: TechnologieService,
     public gouvService: GovernorateService,
-    private service: SiteService, private fb: FormBuilder) {
-  }
+    private service: SiteService,
+    private fb: FormBuilder
+  ) {}
 
   save() {
-
-    this.paramPhyForm.value.idPhysique = parseInt(this.paramPhyForm.value.idPhysique);
-    this.paramPhyForm.value.idLogique = parseInt(this.paramPhyForm.value.idLogique);
-    this.paramPhyForm.value.idArchive = parseInt(this.paramPhyForm.value.idArchive);
-    this.paramPhyForm.value.idTechnologie = parseInt(this.paramPhyForm.value.idTechnologie);
-    this.paramPhyForm.value.idRegion = parseInt(this.paramPhyForm.value.idRegion);
-
-    this.service.add(this.paramPhyForm.value).subscribe(
-      (response: any) => {
-        alert('Site ajouté avec succès');
-        window.location.reload(); 
+    const siteName = this.form.value.libelleSite;
+  
+    // Check if the site with the same name exists using json-server
+    this.service.checkIfSiteExists(siteName).subscribe(
+      (sites: Site[]) => {
+        if (sites && sites.length > 0) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Duplication de nom',
+            html: '<span style="color:#d9534f;">Un site avec ce nom existe déjà. Veuillez entrer un nom unique pour le site.</span>',
+          });
+        } else {
+          // If the site name is unique, proceed to save
+          this.form.value.idRegion = parseInt(this.form.value.idRegion, 10);
+  
+          this.service.add(this.form.value).subscribe(
+            (response: any) => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Ajout réussi',
+                text: 'Le site a été ajouté avec succès.',
+              }).then(() => {
+                window.location.reload();
+              });
+            },
+            (error: any) => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Erreur d\'ajout',
+                text: 'Une erreur est survenue lors de l\'ajout du site. Veuillez réessayer plus tard.',
+              });
+              console.error('Erreur lors de l\'ajout', error);
+            }
+          );
+        }
       },
       (error: any) => {
-        console.error('Erreur lors de l\'ajout', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur de vérification',
+          text: 'Une erreur est survenue lors de la vérification du nom du site. Veuillez réessayer plus tard.',
+        });
+        console.error('Erreur lors de la vérification du site', error);
       }
     );
-
-
   }
-
+  
 
   onFormSubmit() {
-    console.log(this.paramPhyForm);
+    console.log(this.form.value);
     this.save();
   }
-
 
   getParamPhy() {
     this.paramPhyService.getList().subscribe(
       (data: any[]) => {
         this.listOfPhy = data;
-        console.log('%csrc\app\features\components\site\add-site\add-site.component.ts:73 this.listOfPhy', 'color: #007acc;', this.listOfPhy);
+        console.log('Paramètres physiques:', this.listOfPhy);
       },
       (error: any) => {
-        console.error('Erreur lors de la récupération des paramétres physique', error);
+        console.error('Erreur lors de la récupération des paramètres physiques', error);
       }
     );
   }
@@ -102,23 +138,22 @@ export class AddSiteComponent {
     this.paramLogiqueService.getList().subscribe(
       (data: any[]) => {
         this.listOfLog = data;
-        console.log('%csrc\app\features\components\site\add-site\add-site.component.ts:85 this.listOfLog ', 'color: #007acc;', this.listOfLog);
+        console.log('Paramètres logiques:', this.listOfLog);
       },
       (error: any) => {
-        console.error('Erreur lors de la récupération des paramétres logique', error);
+        console.error('Erreur lors de la récupération des paramètres logiques', error);
       }
     );
   }
-
 
   getParamArch() {
     this.paramArchiveService.getList().subscribe(
       (data: any[]) => {
         this.listOfArch = data;
-        console.log('%csrc\app\features\components\site\add-site\add-site.component.ts:98 this.listOfArch', 'color: #007acc;', this.listOfArch);
+        console.log('Paramètres d\'archive:', this.listOfArch);
       },
       (error: any) => {
-        console.error("Erreur lors de la récupération des paramétres d'archive", error);
+        console.error('Erreur lors de la récupération des paramètres d\'archive', error);
       }
     );
   }
@@ -129,7 +164,7 @@ export class AddSiteComponent {
         this.listOfTech = data;
       },
       (error: any) => {
-        console.error("Erreur lors de la récupération de la liste des technologies", error);
+        console.error('Erreur lors de la récupération de la liste des technologies', error);
       }
     );
   }
@@ -140,11 +175,10 @@ export class AddSiteComponent {
         this.listOfReg = data;
       },
       (error: any) => {
-        console.error("Erreur lors de la récupération de la liste des gouvernorats", error);
+        console.error('Erreur lors de la récupération de la liste des gouvernorats', error);
       }
     );
   }
-
 
   onGouvernoratChange(event: any): void {
     const idGouvernoratSelectionne = event.target.value;
@@ -157,7 +191,7 @@ export class AddSiteComponent {
         this.delegations = data.delegations;
       },
       (error: any) => {
-        console.error("Erreur lors de la récupération de la liste des délégations", error);
+        console.error('Erreur lors de la récupération de la liste des délégations', error);
       }
     );
   }
@@ -167,26 +201,20 @@ export class AddSiteComponent {
     const delegation = this.findDelegationById(idDelegationSelectionne);
 
     if (delegation) {
-        this.secteurs = delegation.secteurs;
+      this.secteurs = delegation.secteurs;
     } else {
-        console.error("Délégation non trouvée");
+      console.error('Délégation non trouvée');
     }
-}
+  }
 
-findDelegationById(libelle: any): any {
+  findDelegationById(libelle: any): any {
     for (const gouvernorat of this.listOfReg) {
-        for (const delegation of gouvernorat.delegations) {
-            if (delegation.libelle == libelle) {
-                return delegation;
-            }
+      for (const delegation of gouvernorat.delegations) {
+        if (delegation.libelle === libelle) {
+          return delegation;
         }
+      }
     }
-    return null; 
+    return null;
+  }
 }
-
-
-
-}
-
-
-

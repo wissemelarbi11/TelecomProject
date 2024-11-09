@@ -6,7 +6,7 @@ import { Site } from 'src/app/features/models/site';
 import { CelluleService } from 'src/app/features/services/cellule.service';
 import { GovernorateService } from 'src/app/features/services/governorate.service';
 import { SiteService } from 'src/app/features/services/site.service';
-
+import { TechnologieService } from 'src/app/features/services/technologie.service';
 @Component({
   selector: 'app-edit-cellule',
   templateUrl: './edit-cellule.component.html',
@@ -20,6 +20,10 @@ export class EditCelluleComponent {
   delegations: any[] = [];
   listOfReg: any[] = [];
   listOfSite: Site[] = [];
+  listOfTech: any[] = [];
+  selectedTechnologie: string = '';
+
+  
 
   /**
    * @ignore
@@ -29,6 +33,7 @@ export class EditCelluleComponent {
     public service: CelluleService,
     public gouvService: GovernorateService,
     private siteService: SiteService,
+    private technologieService: TechnologieService,
   ) { }
 
 
@@ -40,13 +45,18 @@ export class EditCelluleComponent {
 
     this.formGroup = this.fb.group({
       id: [],
+      nomcellule: [''],
       idSite: [],
+      lac: [],
+      bsc: [],
+      puissance: [],
       bande: [''],
       pci: [''],
       power: [''],
       tac: [''],
       tilt: [''],
       azimuth: [''],
+      technologie: [],
     })
    
     if (this.formGroup && this.data) {
@@ -59,6 +69,7 @@ export class EditCelluleComponent {
         tac: this.data.tac,
         tilt: this.data.tilt,
         azimuth: this.data.azimuth,
+        technologie: this.data.technologie,
       });
     }
 
@@ -105,6 +116,10 @@ export class EditCelluleComponent {
       }
     );
 
+  }
+  
+  onTechnologieChange(event: any): void {
+    this.selectedTechnologie = event.target.value;
   }
 
   getGouv() {

@@ -35,5 +35,9 @@ export class CelluleService {
     const url = `${this.apiUrl}/${data.id}`;
     return this.httpClient.put(url, data);
   }
-
+  addCellule(cellule: Cellule): Observable<Cellule> {
+    return this.httpClient.post<Cellule>(this.apiUrl, cellule);
+  }
+ 
 }
+

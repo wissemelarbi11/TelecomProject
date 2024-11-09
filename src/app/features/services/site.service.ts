@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Site } from '../models/site';
@@ -36,7 +36,11 @@ export class SiteService {
     const url = `${this.apiUrl}/${data.id}`;
     return this.httpClient.put(url, data);
   }
-
+  
+  checkIfSiteExists(siteName: string) {
+    return this.httpClient.get<Site[]>(`http://localhost:3000/sites?libelleSite=${siteName}`);
+  }
+  
 
 
 }

@@ -18,8 +18,9 @@ export class GetDocComponent {
   isDialogOpen: boolean = false;
   isDialogEdit: boolean = false;
   data!: any;
-  siteList!: Site[];
+  siteList: Site[] = [];
   listOfReg: any[] = [];
+
 
   /**
 * @ignore
@@ -34,8 +35,11 @@ export class GetDocComponent {
   ngOnInit(): void {
 
     this.getAll();
-    this.getSiteList();
     this.getGouv();
+    this.getSiteList();
+    
+   
+    
   }
 
   getAll() {
@@ -44,6 +48,17 @@ export class GetDocComponent {
     })
   }
 
+  getSiteList() {
+    this.siteService.getList().subscribe((res: any[]) => {
+      this.siteList = res;
+    });
+  }
+
+  getLibelleSite(id: any): string {
+    // Recherchez le libellé correspondant à l'ID de site
+    const site = this.siteList.find(param => param.id == id);
+    return site ? site.libelleSite : '';
+  }
 
   add() {
     this.isDialogOpen = true;
@@ -85,6 +100,7 @@ export class GetDocComponent {
     })
 
   }
+  
 
   OnSelected(id: any) {
 
@@ -92,44 +108,42 @@ export class GetDocComponent {
 
   }
 
-
   edit(item: any) {
     this.isDialogEdit = true;
     this.data = item;
-  }
-
-  getSiteList() {
-    this.siteService.getList().subscribe((res: any[]) => {
-      this.siteList = res;
-    });
-  }
-
-  getLibelleSite(id: any): string {
-    // Recherchez le libellé correspondant à l'ID de site
-    const site = this.siteList.find(param => param.id == id);
-    return site ? site.libelleSite : '';
   }
 
   getGouv() {
     this.gouvService.getList().subscribe(
       (data: any[]) => {
         this.listOfReg = data;
+        console.log('%csrc\app\features\components\site\get-site\get-site.component.ts:133 this.listOfReg', 'color: #007acc;', this.listOfReg);
+
       },
       (error: any) => {
         console.error("Erreur lors de la récupération de la liste des gouvernorats", error);
       }
     );
   }
-  
+
   getGouvernorat(id: any): string {
+    console.log('ididid', id);
+
     // Recherchez le gouvernorat correspondant à l'ID de site
-    const site = this.siteList.find(param => param.id == id);
+    const site = this.dataSource.find(param => param.idRegion == id);
+    console.log('site', site);
 
     const regionId = site ? site.idRegion : '';
     const region = this.listOfReg.find(region => region.id === regionId);
+    console.log('region', region);
 
     return region ? region.libelle : '';
   }
+ 
 
 }
+
+
+
+
 

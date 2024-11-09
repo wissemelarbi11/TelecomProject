@@ -45,7 +45,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Liste des documents financiers</h4>
+                        <h4 class="card-title">Découvrez la plateforme de dossier financier de sites GSM de Tunisie Telecom</h4>
                         <div class="card-tools">
                             <button type="button" data-target=".bs-example-modal-lg-add" data-toggle="modal"
                                 (click)="add()" class="btn btn-block btn-primary btn-sm">
@@ -58,12 +58,14 @@
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Code</th>
+                                    <th>Code Dossier</th>
                                     <th>Nom site</th>
                                     <th>Gouvernorat</th>
+                                    <th>Délegation</th>
                                     <th>proprietaire</th>
                                     <th>montant</th>
-                                    <th>contrat</th>
+                                    <th>Date de contrat</th>
+                                    <th>Contrat</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -71,10 +73,14 @@
                                 <tr *ngFor="let item of dataSource; let i = index">
                                     <td>{{ item.id }}</td>
                                     <td>{{ getLibelleSite(item.idSite) }}</td>
-                                    <td>{{ getGouvernorat(item.idSite) }}</td>
+                                    <td hidden>{{item.idRegion}}</td>
+                                    <td>{{ getGouvernorat(item.idRegion) }}</td>
+                                    <td>{{item.delegation}}</td>
                                     <td>{{ item.proprietaire }}</td>
                                     <td>{{ item.montant }}</td>
+                                    <td>{{ item.dateContrat | date:'dd/MM/yyyy' }}</td>
                                     <td><a [href]="item.contrat" target="_blank">{{ item.contrat }}</a></td>
+                               
                                     <td>
                                         <div>
                                             <button class="btn  btn-info btn-sm" style="  width: auto;
@@ -92,13 +98,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Code</th>
-                                    <th>Nom site</th>
-                                    <th>Gouvernorat</th>
-                                    <th>proprietaire</th>
-                                    <th>montant</th>
-                                    <th>contrat</th>
-                                    <th>Actions</th>
+                                  
                                 </tr>
                             </tfoot>
                         </table>

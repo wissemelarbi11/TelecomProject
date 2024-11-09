@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { interval, takeWhile } from 'rxjs';
 import { gouvernorate } from 'src/app/features/models/governorate';
@@ -13,61 +13,66 @@ import Swal from 'sweetalert2';
   templateUrl: './add-doc.component.html',
   styleUrls: ['./add-doc.component.css']
 })
-export class AddDocComponent {
-
-
+export class AddDocComponent implements OnInit {
   listOfPhy: any[] = [];
   listOfLog: any[] = [];
   listOfArch: any[] = [];
   listOfTech: any[] = [];
-  listOfReg: any[] = [];
+  listOfReg: gouvernorate[] = [];
+  listOfSite: Site[] = [];
   public formFiles!: FormGroup;
   public form!: FormGroup;
-
+  secteurs: any[] = [];
+  isSiteSelected: boolean = false;
   delegations: any[] = [];
-  listOfSite: Site[] = [];
+  filteredSites!: Site[];
+  selectedFiles: any;
+  currentFileUpload: any;
+  progress!: number;
+  message: any;
+
+  constructor(
+    public gouvService: GovernorateService,
+    private siteService: SiteService,
+    private service: DocService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
-
     this.formFiles = new FormGroup({
       apd: new FormControl('')
     });
-    
+
     this.form = this.fb.group({
       id: [],
       idSite: [],
+      idRegion: [],
       apd: [''],
       expertise: [''],
       fvr: [''],
-    }
-
-    );
+      delegation: [],
+      site: [],
+    });
 
     this.getGouv();
     this.getSite();
   }
 
-  constructor(
-    public gouvService: GovernorateService,
-    private siteService: SiteService,
-    private service: DocService, private fb: FormBuilder) {
-  }
-
   save() {
+    this.form.value.idRegion = parseInt(this.form.value.idRegion);
 
     this.service.add(this.form.value).subscribe(
       (response: any) => {
-        alert('Document ajouté avec succès');
-        window.location.reload(); 
+        Swal.fire('Success', 'Document ajouté avec succès', 'success').then(() => {
+          window.location.reload();
+        });
       },
       (error: any) => {
+        Swal.fire('Erreur', 'Erreur lors de l\'ajout', 'error');
         console.error('Erreur lors de l\'ajout', error);
       }
     );
-
-
   }
-
 
   onFormSubmit() {
     console.log(this.form);
@@ -76,20 +81,34 @@ export class AddDocComponent {
 
   getGouv() {
     this.gouvService.getList().subscribe(
-      (data: any[]) => {
+      (data: gouvernorate[]) => {
         this.listOfReg = data;
       },
       (error: any) => {
-        console.error("Erreur lors de la récupération de la liste des gouvernorats", error);
+        Swal.fire('Erreur', 'Erreur lors de la récupération de la liste des gouvernorats', 'error');
+        console.error('Erreur lors de la récupération de la liste des gouvernorats', error);
       }
     );
   }
 
+  filterSitesByGouvernorat(gouvernoratId: number): void {
+    this.filteredSites = this.listOfSite.filter(site => site.idRegion === gouvernoratId);
+  }
+
+  filterSitesByDelegation(DelegationId: number): void {
+    this.filteredSites = this.listOfSite.filter(site => site.delegation === DelegationId);
+  }
 
   onGouvernoratChange(event: any): void {
     const idGouvernoratSelectionne = event.target.value;
-    console.log('%csrc\app\features\components\site\add-site\add-site.component.ts:137 event', 'color: #007acc;', idGouvernoratSelectionne);
     this.getDelegationsByGouvernoratId(idGouvernoratSelectionne);
+    this.filterSitesByGouvernorat(idGouvernoratSelectionne);
+  }
+
+  DelegationChange(event: any): void {
+    const idDelegationSelectionne = event.target.value;
+    this.getDelegationsByGouvernoratId(idDelegationSelectionne);
+    this.filterSitesByDelegation(idDelegationSelectionne);
   }
 
   getDelegationsByGouvernoratId(idGouvernorat: any) {
@@ -98,11 +117,11 @@ export class AddDocComponent {
         this.delegations = data.delegations;
       },
       (error: any) => {
-        console.error("Erreur lors de la récupération de la liste des délégations", error);
+        Swal.fire('Erreur', 'Erreur lors de la récupération de la liste des délégations', 'error');
+        console.error('Erreur lors de la récupération de la liste des délégations', error);
       }
     );
   }
-
 
   getSite() {
     this.siteService.getList().subscribe(
@@ -110,30 +129,82 @@ export class AddDocComponent {
         this.listOfSite = data;
       },
       (error: any) => {
-        console.error("Erreur lors de la récupération de la liste des sites", error);
+        Swal.fire('Erreur', 'Erreur lors de la récupération de la liste des sites', 'error');
+        console.error('Erreur lors de la récupération de la liste des sites', error);
       }
     );
   }
 
-  selectedFiles: any;
-  currentFileUpload: any;
-  progress!: number;
-  message: any;
+  getSecteurByDelegationId(event: any): void {
+    const idDelegationSelectionne = event.target.value;
+    const delegation = this.findDelegationById(idDelegationSelectionne);
+
+    if (delegation) {
+      this.secteurs = delegation.secteurs;
+    } else {
+      Swal.fire('Erreur', 'Délégation non trouvée', 'error');
+      console.error('Délégation non trouvée');
+    }
+  }
+
+  findDelegationById(libelle: any): any {
+    for (const gouvernorat of this.listOfReg) {
+      for (const delegation of gouvernorat.delegations) {
+        if (delegation.libelle == libelle) {
+          return delegation;
+        }
+      }
+    }
+    return null;
+  }
+
+  getGouvernoratBySite(siteId: number) {
+    const site = this.listOfSite.find(site => site.id === siteId);
+    if (site) {
+      const gouvernorat = this.listOfReg.find(gouv => gouv.id === site.idRegion);
+      if (gouvernorat) {
+        return gouvernorat.id;
+      }
+    }
+    return null;
+  }
+
+  getDelegationBySiteId(siteId: number) {
+    const site = this.listOfSite.find(site => site.id === siteId);
+    if (site) {
+      return site.delegation;
+    }
+    return null;
+  }
+
+  onSiteChange(event: any) {
+    const siteId = event.target.value;
+    const selectedGouvernoratId = this.getGouvernoratBySite(parseInt(siteId));
+    const selectedDelegation = this.getDelegationBySiteId(parseInt(siteId));
+    
+    if (selectedGouvernoratId) {
+      this.form.get('idRegion')?.setValue(selectedGouvernoratId);
+      this.getDelegationsByGouvernoratId(selectedGouvernoratId);
+    }
+    
+    if (selectedDelegation) {
+      this.form.get('delegation')?.setValue(selectedDelegation);
+    }
+  }
 
   onSelectedFile(event: any) {
-    this.selectedFiles = event.target.apd;
+    this.selectedFiles = event.target.files;
   }
 
   get isFinished() {
     return this.progress >= 95;
   }
 
-
   importFile() {
     let Verif = false;
     this.progress = 0;
 
-    if (this.selectedFiles == null || this.selectedFiles == '' || this.selectedFiles == undefined) {
+    if (!this.selectedFiles || this.selectedFiles.length === 0) {
       Swal.fire({
         title: "Attention",
         text: "Veuillez entrer un fichier avec une extension PDF ou texte, s'il vous plaît.",
@@ -142,11 +213,10 @@ export class AddDocComponent {
         confirmButtonColor: '#3085d6',
         confirmButtonText: "Oui"
       });
-    }
-    else {
+    } else {
       this.currentFileUpload = this.selectedFiles.item(0);
-      let extension = this.currentFileUpload.name.split(".")[1];
-      if (extension.toUpperCase() != 'PDF' || extension.toUpperCase() != 'TXT' || extension.toUpperCase() != 'DOC' ) {
+      const extension = this.currentFileUpload.name.split(".").pop().toUpperCase();
+      if (!['PDF', 'TXT', 'DOC'].includes(extension)) {
         Swal.fire({
           title: "Attention",
           text: "Veuillez entrer un fichier avec une extension PDF ou texte, s'il vous plaît.",
@@ -155,66 +225,53 @@ export class AddDocComponent {
           confirmButtonColor: '#3085d6',
           confirmButtonText: "Oui"
         });
-      }
-      else {
-        Swal.fire(
-          {
-            title: "",
-            html: '<b>' + this.progress + ' % </b>',
-            timer: 2000,
-            timerProgressBar: true,
-            icon: 'warning',
-            didOpen: () => {
-              Swal.showLoading()
-              const container = Swal.getHtmlContainer();
+      } else {
+        Swal.fire({
+          title: "",
+          html: '<b>' + this.progress + ' % </b>',
+          timer: 2000,
+          timerProgressBar: true,
+          icon: 'warning',
+          didOpen: () => {
+            Swal.showLoading();
+            const container = Swal.getHtmlContainer();
 
-              if (container) {
-                const b = container.querySelector('b');
-                this.progress = 10;
-                if (b) {
-                  b.textContent = this.progress.toString();
-                  this.service.importFile(this.currentFileUpload).subscribe(
-
-                    event => {
-
-                      interval(1000)
-                        .pipe(takeWhile(_ => !this.isFinished))
-                        .subscribe(() => {
-                          if (this.progress < 95) {
-                            this.progress += 1;
-                            b.textContent = this.progress.toString();
-                          }
-                        });
-                      this.progress = 100;
-                      b.textContent = this.progress.toString();
-                      //  this.get_enq_TD();
-                      Swal.close();
-                      alert("Fichier a été bien importé");
-                    },
-                    err => {
-                      alert("Echec du téléversement");
-                      this.selectedFiles = undefined;
-                        //this.formFiles.get('apd').reset();
-                      Swal.close();
-                    }
-                  );
-                }
+            if (container) {
+              const b = container.querySelector('b');
+              this.progress = 10;
+              if (b) {
+                b.textContent = this.progress.toString();
+                this.service.importFile(this.currentFileUpload).subscribe(
+                  event => {
+                    interval(1000)
+                      .pipe(takeWhile(_ => !this.isFinished))
+                      .subscribe(() => {
+                        if (this.progress < 95) {
+                          this.progress += 1;
+                          b.textContent = this.progress.toString();
+                        }
+                      });
+                    this.progress = 100;
+                    b.textContent = this.progress.toString();
+                    Swal.close();
+                    Swal.fire('Success', 'Fichier a été bien importé', 'success');
+                  },
+                  err => {
+                    Swal.fire('Erreur', 'Echec du téléversement', 'error');
+                    this.selectedFiles = undefined;
+                    Swal.close();
+                  }
+                );
               }
-            },
-            willClose: () => {
-              clearInterval(this.progress = 0);
             }
-          }).then((result) => {
-            this.selectedFiles = undefined;
-            //  this.form.get('files').reset();
-          })
-
+          },
+          willClose: () => {
+            clearInterval(this.progress = 0);
+          }
+        }).then((result) => {
+          this.selectedFiles = undefined;
+        });
       }
     }
   }
-
-
 }
-
-
-

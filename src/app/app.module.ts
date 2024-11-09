@@ -11,9 +11,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './auth/auth.module';
 import { HomeModule } from './features/home.module';
 import { RouterModule } from '@angular/router';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
+    
   ],
   imports: [
     BrowserModule,

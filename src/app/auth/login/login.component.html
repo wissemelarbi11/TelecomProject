@@ -1,52 +1,102 @@
-<body class="hold-transition login-page">
-  <div class="login-box">
-    <div class="login-logo">
-      <b>TUNISIE</b>TELECOM
-    </div>
-    <!-- /.login-logo -->
-    <div class="card">
-      <div class="card-body pt-2">
-        <p class="login-box-msg">Connectez-vous pour commencer votre session</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form</title>
 
-        <form *ngIf="!isLoggedIn" [formGroup]="form">
-          <div class="input-group mb-3">
-            <input type="email" class="form-control" formControlName="Nom" placeholder="login">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control" formControlName="password" placeholder="mot de passe">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <!-- /.col -->
-            <div class="col-8 text-end">
-              <button (click)="onSubmit()" style="margin-left: 50%;" class="btn btn-outline-success mb-2">  Se Connecter</button>
-            </div>
-            <!-- /.col -->
-          </div>
-          <div class="form-group">
-            <div class="alert alert-danger" role="alert" *ngIf="isLoginFailed">
-              Login failed: {{ errorMessage }}
-            </div>
-          </div>
-        </form>
+    <!-- FontAwesome Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Additional CSS for Styling -->
+    <style>
+        .signup-link {
+            color: #4e73df;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+        .signup-text {
+            color: #000000;
+            margin-top: 20px;
+        }
+        .form-submit {
+            background-color: #4e73df;
+            border: none;
+            padding: 10px 20px;
+            color: #fff;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .password-container {
+            display: flex;
+            align-items: center;
+        }
+        .password-container input[type="password"],
+        .password-container input[type="text"] {
+            flex-grow: 1;
+        }
+        .password-container i {
+            margin-left: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
 
-        <!-- /.social-auth-links -->
-        <br>
-       
-        <div class="mt-7 text-center">
-  <p style="color: #4e73df;">Vous n’avez pas de compte ?<a  style="color: #4e73df;"href="register"> Inscrivez-vous maintenant </a></p>
- 
-</div>
-      </div>
-      <!-- /.login-card-body -->
+    <div class="main">
+
+        <!-- Sign in Form -->
+        <section class="sign-in">
+          <div class="container">
+              <div class="signin-content">
+                  <div class="signin-image">
+                      <figure><img src="assets/images/signin-image.jpg" alt="sign in image"></figure>
+                  </div>
+
+                  <div class="signin-form">
+                      <h2 class="form-title">Se connecter</h2>
+                      <form method="POST" class="register-form" id="login-form">
+                          <div class="form-group">
+                              <label for="your_name"><i class="fas fa-user"></i></label>
+                              <input type="text" name="your_name" id="your_name" placeholder="Nom d'utilisateur"/>
+                          </div>
+                          <div class="form-group password-container">
+                              <label for="your_pass"><i class="fas fa-lock"></i></label>
+                              <input 
+                                  [type]="isPasswordVisible ? 'text' : 'password'" 
+                                  name="your_pass" 
+                                  id="your_pass" 
+                                  placeholder="Mot de passe" 
+                              />
+                              <i 
+                                  class="fas" 
+                                  [ngClass]="isPasswordVisible ? 'fa-eye-slash' : 'fa-eye'" 
+                                  (click)="togglePasswordVisibility()">
+                              </i>
+                          </div>
+                          <div class="form-group">
+                              <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                              <label for="remember-me" class="label-agree-term"><span><span></span></span>Memoriser mot de passe</label>
+                          </div>
+                          <div class="form-group form-button">
+                            <button (click)="onSubmit()" class="form-submit"  name="signin" id="signin">Connecter</button>
+                          </div>
+                      </form>
+              
+                      <p class="signup-text">Vous n’avez pas de compte ?<a class="signup-link" href="register"> Inscrivez-vous maintenant </a></p>
+                  </div>
+              </div>
+          </div>
+      </section>
+
     </div>
-  </div>
+
+    <!-- JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

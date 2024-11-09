@@ -1,20 +1,15 @@
 <div class="modal fade bs-example-modal-lg-add" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
             <div class="card card-info">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title">Ajouter un document</h3>
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
                 </div>
             </div>
             <div class="modal-body">
                 <app-add-doc></app-add-doc>
-
             </div>
-
-
         </div>
     </div>
 </div>
@@ -22,20 +17,15 @@
 <div class="modal fade bs-example-modal-lg-edit" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
             <div class="card card-info">
-                <div class="card-header">
-                    <h3 class="card-title">Modifer ce document</h3>
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-                    </button>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title">Modifier ce document</h3>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
                 </div>
             </div>
             <div class="modal-body">
                 <app-edit-doc [data]="data"></app-edit-doc>
-
             </div>
-
-
         </div>
     </div>
 </div>
@@ -45,23 +35,24 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Liste des documents</h4>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">Bienvenue sur la plateforme de gestion des sites GSM de Tunisie Telecom</h4>
                         <div class="card-tools">
                             <button type="button" data-target=".bs-example-modal-lg-add" data-toggle="modal"
-                                (click)="add()" class="btn btn-block btn-primary btn-sm">
-                                <i class="fa fa-plus"></i>
+                                (click)="add()" class="btn btn-primary btn-sm">
+                                <i class="fa fa-plus"></i> Ajouter
                             </button>
                         </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example2" class="table table-bordered table-hover">
-                            <thead>
+                            <thead class="thead-dark">
                                 <tr>
-                                    <th>Code</th>
+                                    <th>Code Document</th>
                                     <th>Nom site</th>
                                     <th>Gouvernorat</th>
+                                    <th>Délegation</th>
                                     <th>APD</th>
                                     <th>Expertise</th>
                                     <th>FVR</th>
@@ -72,45 +63,118 @@
                                 <tr *ngFor="let item of dataSource; let i = index">
                                     <td>{{ item.id }}</td>
                                     <td>{{ getLibelleSite(item.idSite) }}</td>
-                                    <td>{{ getGouvernorat(item.idSite) }}</td>
+                                    <td hidden>{{item.idRegion}}</td>
+                                    <td>{{ getGouvernorat(item.idRegion) }}</td>
+                                    <td>{{item.delegation}}</td>
                                     <td><a [href]="item.apd" target="_blank">{{ item.apd }}</a></td>
                                     <td><a [href]="item.expertise" target="_blank">{{ item.expertise }}</a></td>
                                     <td><a [href]="item.fvr" target="_blank">{{ item.fvr }}</a></td>
-                                    <td>
-                                        <div>
-                                            <button class="btn  btn-info btn-sm" style="  width: auto;
-                                            margin-right: 1rem; " data-target=".bs-example-modal-lg-edit"
-                                                data-toggle="modal" (click)="openDialogedit(item)">
-                                                <i class="fa fa-pen"></i>
-                                            </button>
-                                            <button class="btn btn-danger btn-sm" style="  width: auto;
-                                            margin-right: 1rem; " (click)="delete(item.id)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
+                                    <td class="text-center">
+                                        <button class="btn btn-info btn-sm" data-target=".bs-example-modal-lg-edit"
+                                            data-toggle="modal" (click)="openDialogedit(item)">
+                                            <i class="fa fa-pen"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm" (click)="delete(item.id)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Code</th>
-                                    <th>Nom site</th>
-                                    <th>Gouvernorat</th>
-                                    <th>APD</th>
-                                    <th>Expertise</th>
-                                    <th>FVR</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
                     <!-- /.card-body -->
                 </div>
-
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
 </section>
+
+<style>
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.card-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.card-tools .btn {
+    background-color: #0069d9;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.thead-dark th {
+    background-color: #343a40;
+    color: #fff;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.btn {
+    transition: background-color 0.3s ease;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 10px;
+    border: none;
+}
+
+.modal-header {
+    border-bottom: none;
+    background-color: #007bff;
+    color: #fff;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+/* Adjust button size and margins */
+.btn-sm {
+    padding: 5px 10px;
+    margin-right: 5px;
+}
+
+</style>

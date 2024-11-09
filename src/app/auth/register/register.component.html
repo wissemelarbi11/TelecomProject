@@ -1,83 +1,240 @@
-<div class="account-pages my-5 pt-sm-5">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8 col-lg-6 col-xl-5">
-        <div class="card overflow-hidden">
-          <div class="card-body pt-0">
-            <h3 class="text-center mt-5 mb-4">
-              <a href="" class="d-block auth-logo">
-                <img src="assets/images/logo-dark.png" alt="" height="80" class="auth-logo-dark">
-                <img src="assets/images/logo-light.png" alt="" height="80" class="auth-logo-light">
-              </a>
-            </h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form</title>
 
+    <!-- FontAwesome Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Additional CSS for Styling -->
+    <style>
+        body {
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .signup-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .signup-form {
+            flex: 1;
+            padding: 20px;
+        }
+        .signup-image {
+            flex: 1;
+            text-align: center;
+        }
+        .signup-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .form-group i {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #ccc;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px 10px 10px 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-size: 16px;
+        }
+        .form-control:focus {
+            border-color: #4e73df;
+            outline: none;
+            background-color: #fff;
+        }
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-size: 16px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+        .form-select:focus {
+            border-color: #4e73df;
+            outline: none;
+            background-color: #fff;
+        }
+        .form-submit {
+            background-color: #4e73df;
+            border: none;
+            padding: 10px 20px;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-submit:hover {
+            background-color: #3a5db0;
+        }
+        .term-service {
+            color: #4e73df;
+        }
+        .term-service:hover {
+            text-decoration: underline;
+        }
+        .signup-image-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #f9f9f9;
+            color: #4e73df;
+            text-decoration: none;
+            border: 1px solid #4e73df;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .signup-image-link:hover {
+            background-color: #4e73df;
+            color: #fff;
+        }
+        .signup-text {
+            font-size: 18px; /* Increase font size */
+        }
+        .signup-link {
+            font-size: 18px; /* Increase font size */
+            color: #4e73df;
+            text-decoration: none;
+            margin-left: 5px; /* Add space between text and link */
+        }
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+        .form-title {
+            margin-bottom: 30px;
+            font-size: 26px;
+            color: #1120e5;
+            text-align: center;
+            font-weight: bold;
+        }
+        input[type=checkbox] {
+            display: none; /* Hide the actual checkbox */
+        }
 
-          </div>
+        input[type=checkbox] + label {
+            display: inline-block;
+            line-height: 1.5em;
+            margin-top: 6px;
+            cursor: pointer; /* Add cursor pointer for better UX */
+        }
 
-          <div class="p-3">
+        input[type=checkbox] + label > span {
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            margin-right: 15px;
+            margin-bottom: 3px;
+            border: 1px solid #999;
+            border-radius: 2px;
+            background: white;
+            background-image: linear-gradient(white, white);
+            vertical-align: bottom;
+            cursor: pointer; /* Add cursor pointer for better UX */
+        }
 
-            <h4 class="login-box-msg"> Inscription</h4>
+        input[type=checkbox]:checked + label > span {
+            background-image: linear-gradient(white, white);
+        }
 
-            <p class="login-box-msg">Remplissez les champs s'il vous plaît</p>
+        input[type=checkbox]:checked + label > span:before {
+            content: '\f00c'; /* FontAwesome check icon */
+            display: block;
+            color: #222;
+            font-size: 11px;
+            line-height: 1.2;
+            text-align: center;
+            font-family: 'FontAwesome';
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="main">
 
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Bienvenue chez Tunisie Télécom</h2>
+                        <form method="POST" class="register-form" id="register-form">
+                            <div class="form-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" name="name" id="username" placeholder="Nom d'utilisateur" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" name="email" id="email" placeholder=" Email" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" name="re_pass" id="re_pass" placeholder="Mot de passe" class="form-control"/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" name="re_pass" id="re_pass" placeholder="Confirmez mot de passe" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-select" id="profile" name="profile" required>
+                                    <option value="" disabled selected>Choisir un profil</option>
+                                    <option value="agent">Agent</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="engineer">Ingénieur</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span></span>I agree to all statements in <a href="#" class="term-service">Terms of service</a></label>
+                            </div>
+                            <div class="form-group form-button">
 
-            <form *ngIf="!isSuccessful" [formGroup]="form">
-              <div class="mb-3">
-
-                <input placeholder="Nom d'utilisateur" class="form-control" name="username" formControlName="username"
-                  required minlength="3" maxlength="20" />
-                <!-- <div class="alert-danger" *ngIf="username.errors && f.submitted">
-            <div *ngIf="username.errors['required']">Username is required</div>
-            <div *ngIf="username.errors['minlength']">
-              Username must be at least 3 characters
+                              <button (click)="onSubmit()"type="submit" class="form-submit"  name="signin" id="signin" >Register</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="assets/images/signup-image.jpg" alt="sign up image"></figure>
+                        <p class="signup-text">Vous avez un compte ?<a class="signup-link" href="login"> Login </a></p>
+                    </div>
+                </div>
             </div>
-            <div *ngIf="username.errors['maxlength']">
-              Username must be at most 20 characters
-            </div>
-          </div>-->
-              </div>
-              <div class="mb-3">
+        </section>
+    </div>
 
-                <input placeholder="Email" class="form-control" name="email" formControlName="email" required email />
-                <!--<div class="alert-danger" *ngIf="email.errors && f.submitted">
-            <div *ngIf="email.errors['required']">Email is required</div>
-            <div *ngIf="email.errors['email']">
-              Email must be a valid email address
-            </div>
-          </div>-->
-              </div>
-              <div class="mb-3">
-
-
-                <input placeholder="Mot de passe" type="password" class="form-control" name="password"
-                  formControlName="password" required minlength="6" />
-
-
-                <!--  <div class="alert-danger" *ngIf="password.errors && f.submitted">
-            <div *ngIf="password.errors['required']">Password is required</div>
-            <div *ngIf="password.errors['minlength']">
-              Password must be at least 6 characters
-            </div>
-          </div>-->
-              </div>
-              <div class="form-group">
-                <button class="btn btn-primary btn-block"> S'inscrire</button>
-
-              </div>
-
-              <div class="alert-warning" *ngIf="isSignUpFailed">
-                Signup failed!<br />{{ errorMessage }}
-              </div>
-            </form>
-
-            <div class="alert alert-success" *ngIf="isSuccessful">
-              Your registration is successful!
-            </div>
-          </div>
-          <div class="mt-5 text-center">
-            <p>Vous avez déjà un compte ? <a href="/" class="text-primary"> Connecter</a> </p>
-            © Copyright 2024 Wissem ELARBI
-          </div>
-
-        </div>
+    <!-- JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,103 +1,184 @@
 <form [formGroup]="form">
-
     <!-- Horizontal Form -->
     <div class="card card-info">
-
-        <!-- /.card-header -->
-        <!-- form start -->
-        <div class="form-horizontal">
-            <div class="card-body">
-
-                <div class="form-group row">
-                    <label for="Code" class="col-sm-4 col-form-label">Code</label>
-                    <div class="col-sm-10">
-                        <input type="number" formControlName="id" class="form-control" id="Code" placeholder="Code">
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label for="libelleSite" class="col-sm-4 col-form-label">Liste des sites</label>
-                    <select class="form-control" formControlName="idSite">
-                        <option *ngFor="let item of listOfSite" [value]="item.id"> {{ item.libelleSite }}
-                        </option>
-                    </select>
-                </div>
-
-                <div class="form-group row">
-                    <label for="bande" class="col-sm-4 col-form-label">bande</label>
-                    <div class="col-sm-10">
-                        <input type="number" formControlName="bande" class="form-control" id="bande" min="13" max="36">
-                    </div>
-                </div>
-                
-
-                <div class="form-group row">
-                    <label for="pci" class="col-sm-4 col-form-label">pci</label>
-                    <div class="col-sm-10">
-                        <input type="text" formControlName="pci" class="form-control" id="pci">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="power" class="col-sm-4 col-form-label">power</label>
-                    <div class="col-sm-10">
-                        <input type="text" formControlName="power" class="form-control" id="power">
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label for="tac" class="col-sm-4 col-form-label">tac</label>
-                    <div class="col-sm-10">
-                        <input type="text" formControlName="tac" class="form-control" id="tac">
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label for="tilt" class="col-sm-4 col-form-label">tilt</label>
-                    <div class="col-sm-10">
-                        <input type="text" formControlName="tilt" class="form-control" id="tilt">
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label for="azimuth" class="col-sm-4 col-form-label">azimuth</label>
-                    <div class="col-sm-10">
-                        <input type="text" formControlName="azimuth" class="form-control" id="azimuth">
-                    </div>
-                </div>
-
-                <!--   <div class="form-group row">
-                    <label for="idRegion" class="col-sm-4 col-form-label">Gouvernorat</label>
-                    <select class="form-control" formControlName="idRegion" (change)="onGouvernoratChange($event)">
-                        <option *ngFor="let gouvernorat of listOfReg" [value]="gouvernorat.id">{{ gouvernorat.libelle }}
-                        </option>
-                    </select>
-                </div>
-
-
-                <div class="form-group row">
-                    <label for="idDelegation" class="col-sm-4 col-form-label">Délégation</label>
-                    <select class="form-control" formControlName="idDelegation">
-                        <option *ngFor="let delegation of delegations" [value]="delegation.id">{{ delegation.libelle }}
-                        </option>
-                    </select>
-                </div> -->
-
-
+      <!-- /.card-header -->
+      <!-- form start -->
+      <div class="form-horizontal">
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="Code" class="col-sm-4 col-form-label">Code Cellule</label>
+            <div class="col-sm-10">
+              <input type="number" formControlName="id" class="form-control" id="Code" placeholder="Code">
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-                <button class="btn btn-info" (click)="save()">Ajouter</button>
-                <button type="reset" class="btn btn-default float-right">Annuler</button>
+          </div>
+  
+          <div class="form-group row">
+            <label for="tac" class="col-sm-4 col-form-label">Nom Cellule</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="nomcellule" class="form-control" id="nomcellule">
             </div>
-            <!-- /.card-footer -->
+          </div>
+  
+          <div class="form-group row">
+            <label for="libelleSite" class="col-sm-4 col-form-label">Liste des sites</label>
+            <select class="form-control" formControlName="idSite">
+              <option *ngFor="let item of listOfSite" [value]="item.id"> {{ item.libelleSite }} </option>
+            </select>
+          </div>
+  
+          <div class="form-group row">
+            <label for="technologie" class="col-sm-4 col-form-label">Technologie</label>
+            <select class="form-control" formControlName="technologie" (change)="onTechnologieChange($event)">
+              <option value="2G">2G</option>
+              <option value="3G">3G</option>
+              <option value="4G">4G</option>
+            </select>
+          </div>
+  
+          <!-- Champs spécifiques pour 2G -->
+          <div *ngIf="selectedTechnologie === '2G'">
+            <div class="form-group row">
+                <label for="power" class="col-sm-4 col-form-label">LAC</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="lac" class="form-control" id="lac">
+                </div>
+              </div>
+            <div class="form-group row">
+                <label for="power" class="col-sm-4 col-form-label">BSC</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="bsc" class="form-control" id="bsc">
+                </div>
+              </div>
+            <div class="form-group row">
+              <label for="bande" class="col-sm-4 col-form-label">Bande de fréquence</label>
+              <div class="col-sm-10">
+                <input type="number" formControlName="bande" class="form-control" id="bande" min="13" max="36">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="power" class="col-sm-4 col-form-label">Azimuth</label>
+              <div class="col-sm-10">
+                <input type="text" formControlName="azimuth" class="form-control" id="azimuth">
+              </div>
+            </div>
+            <div class="form-group row">
+                <label for="power" class="col-sm-4 col-form-label">Puissance</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="puissance" class="form-control" id="puissance">
+                </div>
+              </div>
+
+            <div class="form-group row">
+                <label for="power" class="col-sm-4 col-form-label">Tilt</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="tilt" class="form-control" id="tilt">
+                </div>
+              </div>
+            <!-- Ajoutez ici d'autres champs spécifiques pour 2G -->
+          </div>
+  
+          <!-- Champs spécifiques pour 3G -->
+          <div *ngIf="selectedTechnologie === '3G'">
+            <div class="form-group row">
+              <label for="pci" class="col-sm-4 col-form-label">LAC</label>
+              <div class="col-sm-10">
+                <input type="text" formControlName="lac" class="form-control" id="lac">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="tac" class="col-sm-4 col-form-label">RNC</label>
+              <div class="col-sm-10">
+                <input type="text" formControlName="rnc" class="form-control" id="rnc">
+              </div>
+            </div>
+            <div class="form-group row">
+                <label for="tac" class="col-sm-4 col-form-label">PSC</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="psc" class="form-control" id="psc">
+                </div>
+              </div>
+            
+              <div class="form-group row">
+                <label for="bande" class="col-sm-4 col-form-label">Bande de fréquence</label>
+                <div class="col-sm-10">
+                  <input type="number" formControlName="bande" class="form-control" id="bande" min="13" max="36">
+                </div>
+              </div>
+            
+
+              <div class="form-group row">
+                <label for="tac" class="col-sm-4 col-form-label">Azimuth</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="azimuth" class="form-control" id="azimuth">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="tac" class="col-sm-4 col-form-label">Puissance</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="puissance" class="form-control" id="puissance">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="tac" class="col-sm-4 col-form-label">Tilt</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="tac" class="form-control" id="tac">
+                </div>
+              </div>
+            <!-- Ajoutez ici d'autres champs spécifiques pour 3G -->
+          </div>
+  
+          <!-- Champs spécifiques pour 4G -->
+          <div *ngIf="selectedTechnologie === '4G'">
+            <div class="form-group row">
+              <label for="tilt" class="col-sm-4 col-form-label">tilt</label>
+              <div class="col-sm-10">
+                <input type="text" formControlName="tilt" class="form-control" id="tilt">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="azimuth" class="col-sm-4 col-form-label">azimuth</label>
+              <div class="col-sm-10">
+                <input type="text" formControlName="azimuth" class="form-control" id="azimuth">
+              </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="azimuth" class="col-sm-4 col-form-label">LAC</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="lac" class="form-control" id="lac">
+                </div>
+              </div>
+            
+              <div class="form-group row">
+                <label for="azimuth" class="col-sm-4 col-form-label">RNC</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="rnc" class="form-control" id="rnc">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="azimuth" class="col-sm-4 col-form-label">PSC</label>
+                <div class="col-sm-10">
+                  <input type="text" formControlName="psc" class="form-control" id="psc">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="bande" class="col-sm-4 col-form-label">Bande de fréquence</label>
+                <div class="col-sm-10">
+                  <input type="number" formControlName="bande" class="form-control" id="bande" min="13" max="36">
+                </div>
+              </div>
+            <!-- Ajoutez ici d'autres champs spécifiques pour 4G -->
+          </div>
+  
+          <div class="card-footer">
+            <button class="btn btn-info" (click)="save()">Ajouter</button>
+            <button type="reset" class="btn btn-default float-right">Annuler</button>
+          </div>
         </div>
-        <!-- /.form-horizontal -->
+      </div>
     </div>
-    <!-- /.card -->
-
-</form>
+  </form>
+  

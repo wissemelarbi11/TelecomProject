@@ -1,4 +1,4 @@
-<form [formGroup]="paramPhyForm">
+<form [formGroup]="form">
 
     <!-- Horizontal Form -->
     <div class="card card-info">
@@ -9,40 +9,28 @@
             <div class="card-body">
 
                 <div class="form-group row">
-                    <label for="Code" class="col-sm-4 col-form-label">Code</label>
+                    <label for="Code" class="col-sm-4 col-form-label">Code Site</label>
                     <div class="col-sm-10">
                         <input type="number" formControlName="id" class="form-control" id="Code" placeholder="Code">
                     </div>
                 </div>
-
+                
                 <div class="form-group row">
-                    <label for="libelleSite" class="col-sm-4 col-form-label">Liste des paramétres physique</label>
-                    <select class="form-control" formControlName="idPhysique">
-                        <option *ngFor="let item of listOfPhy" [value]="item.id"> {{ item.SectionVideo }}
-                        </option>
-                    </select>
+                    <label for="libelleSite" class="col-sm-4 col-form-label">Nom site</label>
+                    <div class="col-sm-10">
+                        <input type="text" formControlName="libelleSite" class="form-control" id="libelleSite"
+                            placeholder="Nom site">
+                    </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="libelleSite" class="col-sm-4 col-form-label">Liste des paramétres logique</label>
-                    <select class="form-control" formControlName="idLogique">
-                        <option *ngFor="let item of listOfLog" [value]="item.id"> {{ item.hba }}</option>
-                    </select>
-                </div>
+                
+
 
                 <div class="form-group row">
-                    <label for="libelleSite" class="col-sm-4 col-form-label">Liste des paramétres d'archive</label>
-                    <select class="form-control" formControlName="idArchive">
-                        <option *ngFor="let item of listOfArch" [value]="item.id"> {{ item.ficheMiseService }}
-                        </option>
-                    </select>
-                </div>
-
-                <div class="form-group row">
-                    <label for="libelleSite" class="col-sm-4 col-form-label">Fournisseur</label>
-                    <select class="form-control" formControlName="idTechnologie">
-                        <option *ngFor="let item of listOfTech" [value]="item.id"> {{ item.libelle }}
-                        </option>
+                    <label for="fournisseur" class="col-sm-4 col-form-label">Fournisseur</label>
+                    <select class="form-control" formControlName="fournisseur">
+                        <option value="huawei">Huawei</option>
+                        <option value="ericsson">Ericsson</option>
                     </select>
                 </div>
 
@@ -57,30 +45,26 @@
 
                 <div class="form-group row">
                     <label for="idDelegation" class="col-sm-4 col-form-label">Délégation</label>
-                    <select class="form-control" formControlName="delegation" (change)="getSecteurByDelegationId($event)">
-                        <option *ngFor="let delegation of delegations" [value]="delegation.libelle">{{ delegation.libelle }}</option>
+                    <select class="form-control" formControlName="delegation"
+                        (change)="getSecteurByDelegationId($event)">
+                        <option *ngFor="let delegation of delegations" [value]="delegation.libelle">{{
+                            delegation.libelle }}</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group row">
                     <label for="secteur" class="col-sm-4 col-form-label">Secteur</label>
                     <select class="form-control" formControlName="secteur">
                         <option *ngFor="let secteur of secteurs" [value]="secteur">{{ secteur }}</option>
                     </select>
                 </div>
+
+
+
                 
 
-
                 <div class="form-group row">
-                    <label for="libelleSite" class="col-sm-4 col-form-label">Libellé de site</label>
-                    <div class="col-sm-10">
-                        <input type="text" formControlName="libelleSite" class="form-control" id="libelleSite"
-                            placeholder="libelleSite">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="miseEnSceneDate" class="col-sm-4 col-form-label">Date de mise en scène</label>
+                    <label for="miseEnSceneDate" class="col-sm-4 col-form-label">Date de mise en service</label>
                     <div class="col-sm-10">
                         <input type="date" formControlName="miseEnSceneDate" class="form-control" id="miseEnSceneDate">
                     </div>
@@ -88,7 +72,7 @@
 
 
                 <div class="form-group row">
-                    <label for="Surface" class="col-sm-4 col-form-label">Surface</label>
+                    <label for="Surface" class="col-sm-4 col-form-label">Surface Occupée</label>
                     <div class="col-sm-10">
                         <input type="text" formControlName="surface" class="form-control" id="Surface"
                             placeholder="Surface">
@@ -103,7 +87,43 @@
                     </div>
                 </div>
 
-           
+                <div class="form-group row">
+                    <label for="nbAntenne" class="col-sm-4 col-form-label">nbAntenne</label>
+                    <div class="col-sm-10">
+                        <input type="number" formControlName="nbAntenne" class="form-control" id="nbAntenne"
+                            placeholder="nbAntenne">
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="hba" class="col-sm-4 col-form-label">hba</label>
+                    <div class="col-sm-10">
+                        <input type="number" formControlName="hba" class="form-control" id="hba" placeholder="hba">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="x" class="col-sm-4 col-form-label">x</label>
+                    <div class="col-sm-10">
+                        <input type="number" formControlName="x" class="form-control" id="x" placeholder="x">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="y" class="col-sm-4 col-form-label">y</label>
+                    <div class="col-sm-10">
+                        <input type="number" formControlName="y" class="form-control" id="y" placeholder="y">
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label for="support" class="col-sm-4 col-form-label">Accés</label>
+                    <select class="form-control" formControlName="support">
+                        <option value="FO">FO</option>
+                        <option value="FH">FH</option>
+                    </select>
+                </div>
 
             </div>
             <!-- /.card-body -->
